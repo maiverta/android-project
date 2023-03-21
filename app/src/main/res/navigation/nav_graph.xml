@@ -6,7 +6,7 @@
     app:startDestination="@id/objectListFragment">
     <fragment
         android:id="@+id/objectListFragment"
-        android:name="com.example.finalproject.ObjectListFragment"
+        android:name="com.example.finalproject.SignUpFragment"
         android:label="fragment_object_list"
         tools:layout="@layout/fragment_object_list" />
 </navigation>

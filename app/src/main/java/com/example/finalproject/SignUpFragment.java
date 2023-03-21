@@ -2,79 +2,76 @@ package com.example.finalproject;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SignUpFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.finalproject.databinding.FragmentSignupBinding;
+import com.example.finalproject.model.Model;
+import com.example.finalproject.model.User;
+
 public class SignUpFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SignUpFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SignUpFragment newInstance(String param1, String param2) {
-        SignUpFragment fragment = new SignUpFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    FragmentSignupBinding binding;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        FragmentActivity parentActivity = getActivity();
+//        parentActivity.addMenuProvider(new MenuProvider() {
+//            @Override
+//            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+//                menu.removeItem(R.id.signupFragment);
+//            }
+//
+//            @Override
+//            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+//                return false;
+//            }
+//        },this, Lifecycle.State.RESUMED);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        binding = FragmentSignupBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
 
-        View view =  inflater.inflate(R.layout.fragment_signup, container, false);
-        EditText nameEt = view.findViewById(R.id.signup_nameEt);
-        EditText emailEt = view.findViewById(R.id.signup_emailEt);
-        EditText passwordEt = view.findViewById(R.id.signup_passwordEt);
-        EditText cityEt = view.findViewById(R.id.signup_cityEt);
-        EditText phoneNumberEt = view.findViewById(R.id.signup_phoneNumEt);
-
-        Button signUpBtn = view.findViewById((R.id.saveBtn));
-
-        signUpBtn.setOnClickListener(view1 -> {
-            String name= nameEt.getText().toString();
+        binding.singUpbtn.setOnClickListener(view1 -> {
+            String name = "shoval";
+            String email = "aharoni";
+            String userId = "3152";
+            String avatar = "3152";
+            String phone = "0502030860";
+            String city = "rhos";
+//            String email = binding.emailSU.getText().toString();
+//            String phone = binding.phoneSU.getText().toString();
+//            String city = binding.citySU.getText().toString();
+//            String name = binding.nameSU.getText().toString();
+//            String userId = binding.idSU.getText().toString();
+//            User user = new User(userId, name,avatar,email,city,phone);
+            User user = new User(name,email,city,phone);
+            Model.instance().addUser(user,()->{
+                 Navigation.findNavController(view1).popBackStack();
+            });
         });
 
+//        binding.cancellBtn.setOnClickListener(view1 -> Navigation.findNavController(view1).popBackStack(R.id.FragmentSignupBinding,false));
         return view;
     }
+
 }
