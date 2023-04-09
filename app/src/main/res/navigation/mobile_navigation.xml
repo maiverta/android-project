@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.android_project.ui.home.ObjectListFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_object_list" >
+        <action
+            android:id="@+id/action_nav_home_to_objectItemViewFragment"
+            app:destination="@id/objectItemViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.android_project.ui.uploads.UploadsFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" >
+        <action
+            android:id="@+id/action_nav_slideshow_to_editObjectFragment"
+            app:destination="@id/editObjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_add"
+        android:name="com.example.android_project.ui.uploads.AddObjectFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_add_object" />
+    <fragment
+        android:id="@+id/objectItemViewFragment"
+        android:name="com.example.android_project.ObjectItemViewFragment"
+        android:label="ObjectItemViewFragment" >
+        <argument
+            android:name="objectId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editObjectFragment"
+        android:name="com.example.android_project.ui.uploads.EditObjectFragment"
+        android:label="fragment_edit_object"
+        tools:layout="@layout/fragment_edit_object" >
+        <argument
+            android:name="objectId"
+            app:argType="string" />
+    </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.android_project.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.android_project.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
