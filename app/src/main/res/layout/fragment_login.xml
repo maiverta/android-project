@@ -4,19 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+
+    tools:context=".ui.login.loginFragment">
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@color/white"
+
             android:orientation="vertical">
 
             <TextView
@@ -107,11 +116,13 @@
                 <Button
                     android:id="@+id/login_signupBtn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dip"
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="#F44336"
-                    android:text="Sign Up!" />
+                    android:text="Sign Up!"
+                    android:textSize="9dp" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
