@@ -65,9 +65,9 @@ public class SignUpFragment extends Fragment {
 //            String userId = binding.idSU.getText().toString();
 //            User user = new User(userId, name,avatar,email,city,phone);
             User user = new User(name,email,city,phone);
-            Model.instance().addUser(user,()->{
-                 Navigation.findNavController(view1).popBackStack();
-            });
+//            Model.instance().addUser(user,()->{
+//                 Navigation.findNavController(view1).popBackStack();
+//            });
         });
 
 //        binding.cancellBtn.setOnClickListener(view1 -> Navigation.findNavController(view1).popBackStack(R.id.FragmentSignupBinding,false));

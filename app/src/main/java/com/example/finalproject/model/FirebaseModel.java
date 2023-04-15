@@ -31,30 +31,30 @@ public class FirebaseModel{
         db.setFirestoreSettings(settings);
     }
 
-    public void getAllUsers(Model.GetAllUsersListener callback){
-        db.collection(User.COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<User> list = new LinkedList<>();
-                if (task.isSuccessful()){
-                    QuerySnapshot jsonsList = task.getResult();
-                    for (DocumentSnapshot json: jsonsList){
-                        User user = User.fromJson(json.getData());
-                        list.add(user);
-                    }
-                }
-                callback.onComplete(list);
-            }
-        });
-    }
+//    public void getAllUsers(Model.GetAllUsersListener callback){
+//        db.collection(User.COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                List<User> list = new LinkedList<>();
+//                if (task.isSuccessful()){
+//                    QuerySnapshot jsonsList = task.getResult();
+//                    for (DocumentSnapshot json: jsonsList){
+//                        User user = User.fromJson(json.getData());
+//                        list.add(user);
+//                    }
+//                }
+//                callback.onComplete(list);
+//            }
+//        });
+//    }
 
-    public void addUser(User user, Model.AddUserListener listener) {
-        db.collection(User.COLLECTION).document().set(user.toJson())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        listener.onComplete();
-                    }
-                });
-    }
+//    public void addUser(User user, Model.AddUserListener listener) {
+//        db.collection(User.COLLECTION).document().set(user.toJson())
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        listener.onComplete();
+//                    }
+//                });
+//    }
 }
