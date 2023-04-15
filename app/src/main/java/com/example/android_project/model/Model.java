@@ -6,6 +6,15 @@ import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -93,5 +102,69 @@ public class Model {
             mainHandler.post(()->{
                 listener.onComplete(objectItem);
             });
-        });    }
+        });
+    }
+
+    public interface GetCitiesListener{
+        void onComplete(String[] data);
+    }
+    public void getCities(GetCitiesListener listener){
+        LinkedList<String> citiesToAdd = new LinkedList<>();
+
+        executor.execute(()->{
+                    try {
+                        // GET /v1/geo/countries/IL/regions?limit=5&offset=0
+
+                        String queryString = "http://geodb-free-service.wirefreethought.com/v1/geo/cities/54158/nearbyCities?radius=100&hateoasMode=false&limit=10&offset=0";
+                        HttpURLConnection connection = null;
+                        try {
+                            connection = (HttpURLConnection)new URL(queryString).openConnection();
+                            connection.setRequestMethod("GET");
+
+                            InputStream inputStream = connection.getInputStream();
+
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                            StringBuilder response = new StringBuilder();
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                response.append(line);
+                            }
+                            reader.close();
+
+
+
+                            JSONObject jsonObject = new JSONObject(response.toString());
+                            JSONArray citiesWithExtraData = jsonObject.getJSONArray("data");
+
+
+                            for (int i = 0; i < citiesWithExtraData.length(); i++) {
+                                citiesToAdd.add(citiesWithExtraData.getJSONObject(i).getString("city"));
+                            }
+
+
+//                        String currency_response = jsonObject.getJSONObject("exchange_rates").get("city").toString();
+                            Log.d("TAG", citiesToAdd.toString());
+
+//                        Double price_usd = Double.parseDouble(currency_response)*20;
+
+
+                        } catch (IOException e) {
+                            System.out.println(e);
+
+                        } finally {
+                            if (connection != null) {
+                                connection.disconnect();
+                                mainHandler.post(()->{
+                                    listener.onComplete(citiesToAdd.toArray(new String[0]));
+                                });
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
+        });
+    }
 }

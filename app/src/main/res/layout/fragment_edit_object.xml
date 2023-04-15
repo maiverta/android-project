@@ -111,21 +111,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="City" />
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            <Spinner
+                android:id="@+id/edit_object_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_object_cityEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="City" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"/>
 
 
             <TextView

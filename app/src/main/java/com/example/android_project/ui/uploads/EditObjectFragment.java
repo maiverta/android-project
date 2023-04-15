@@ -5,8 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -47,12 +49,17 @@ public class EditObjectFragment extends Fragment {
     TextView usernameTv;
     String username = "mai";
 
-    TextView userPhonenumberTv;
     String userPhonenumber= "0522735536";
 
     String objectId = "";
 
     Boolean isChecked = false;
+
+    Spinner spinner;
+
+    ArrayAdapter<String>adapter;
+
+    String[] cities = new String[0];
 
     public static EditObjectFragment newInstance(String objectId){
         EditObjectFragment frag = new EditObjectFragment();
@@ -75,12 +82,16 @@ public class EditObjectFragment extends Fragment {
     }
 
     public void setObjectValues(){
-        Log.d("nameeeeee", "name" + objectItem.name);
+        for(int i = 0; i< cities.length; i++){
+            if(objectItem.city.equals(cities[i])) {
+                Log.d("ttt", i +"");
+                spinner.setSelection(i);
+            }
+        }
 //        imageUrlTv.setText(objectItem.getImageUrl());
         nameTv.setText(objectItem.getName());
         descriptionTv.setText(objectItem.getDescription());
         handTv.setText(objectItem.getHand().toString());
-        cityTv.setText(objectItem.getCity());
     notesTv.setText(objectItem.getNotes());
         checkBox.setChecked(objectItem.isTaken);
     }
@@ -93,9 +104,20 @@ public class EditObjectFragment extends Fragment {
 
 //        imageUrlTv = view.findViewById(R.id.add_object_image);
 
+        Model.instance().getCities((citiesToAdd)->{
+            cities = citiesToAdd;
+            adapter = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_spinner_item,citiesToAdd);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            adapter.notifyDataSetChanged();
+
+            spinner = (Spinner) view.findViewById(R.id.edit_object_spinner);
+            spinner.setAdapter(adapter);
+
+        });
         nameTv = view.findViewById(R.id.edit_object_nameEt);
         handTv = view.findViewById(R.id.edit_object_handEt);
-        cityTv = view.findViewById(R.id.edit_object_cityEt);
         descriptionTv= view.findViewById(R.id.edit_object_descriptionEt);
         notesTv= view.findViewById(R.id.edit_object_notesEt);
         Button button = view.findViewById(R.id.edit_object_saveBtn);
@@ -116,7 +138,7 @@ public class EditObjectFragment extends Fragment {
             imageUrl = "";
             hand = Integer.parseInt(handTv.getText().toString());
             description = descriptionTv.getText().toString();
-            city = cityTv.getText().toString();
+            city = spinner.getSelectedItem().toString();
             ObjectItem updatedObjectItem = new ObjectItem(this.objectItem.id, name, hand, city, imageUrl, username, userPhonenumber, description, notes);
             updatedObjectItem.setTaken(isChecked);
             Model.instance().addObject(updatedObjectItem, ()->{
