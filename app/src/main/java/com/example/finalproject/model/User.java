@@ -30,6 +30,15 @@ public class User {
         this.phone = phone;
     }
 
+    public User( String id,String name, String email,String city,String phone) {
+        this.name = name;
+        this.id = id;
+        this.avatarUrl = avatarUrl;
+        this.email = email;
+        this.city = city;
+        this.phone = phone;
+    }
+
     public User( String name, String email,String city,String phone) {
         this.name = name;
         this.email = email;
@@ -47,35 +56,16 @@ public class User {
     public static User fromJson(Map<String,Object> json){
         String id = (String)json.get(ID);
         String name = (String)json.get(NAME);
-        String avatar = (String)json.get(AVATAR);
+//        String avatar = (String)json.get(AVATAR);
         String email = (String)json.get(EMAIL);
         String city = (String)json.get(CITY);
         String phone = (String)json.get(PHONE);
 
-        User user = new User(id,name,avatar,email,city,phone);
+//        User user = new User(id,name,avatar,email,city,phone);
+        User user = new User(id,name,email,city,phone);
         return user;
     }
 
-//    public static User fromJsonb(Map<String,Object> json){
-//        String name = (String)json.get(NAME);
-//        String email = (String)json.get(EMAIL);
-//        String city = (String)json.get(CITY);
-//        String phone = (String)json.get(PHONE);
-//
-//        User user = new User(name,email,city,phone);
-//        return user;
-//    }
-
-    public Map<String,Object> toJsona(){
-        Map<String, Object> json = new HashMap<>();
-        json.put(ID, getId());
-        json.put(NAME, getName());
-        json.put(AVATAR, getAvatarUrl());
-        json.put(EMAIL, getEmail());
-        json.put(CITY, getCity());
-        json.put(PHONE, getPhone());
-        return json;
-    }
 
     public Map<String,Object> toJson(){
         Map<String, Object> json = new HashMap<>();
@@ -83,6 +73,7 @@ public class User {
         json.put(EMAIL, getEmail());
         json.put(CITY, getCity());
         json.put(PHONE, getPhone());
+//        json.put(AVATAR, getAvatarUrl());
         return json;
     }
 

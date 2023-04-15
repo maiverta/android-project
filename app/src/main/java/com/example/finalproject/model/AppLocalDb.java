@@ -10,6 +10,7 @@ import com.example.finalproject.MyApplication;
 @Database(entities = {User.class}, version = 55)
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract UserDao userDao();
+    public abstract PostDao postDao();
 }
 
 public class AppLocalDb{
