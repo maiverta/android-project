@@ -6,6 +6,8 @@ import android.widget.ImageView;
 
 import androidx.core.os.HandlerCompat;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -20,6 +22,7 @@ public class Model {
     private FirebaseModel firebaseModel = new FirebaseModel();
     private FirebaseStoreageModel firebaseStoreageModel = new FirebaseStoreageModel();
     private Firestore firestore = new Firestore();
+    private FirebaseUserModel userModel = new FirebaseUserModel();
     AppLocalDbRepository localDb=AppLocalDb.getAppDb();
 
 
@@ -41,20 +44,38 @@ public class Model {
         void onComplete(List<Post> data);
     }
 
-    public void getAllUsers(GetAllUsersListener callback){
+//    public void getAllUsers(GetAllUsersListener callback){
+//
+//        firebaseModel.getAllUsers(callback);
+//    }
 
-        firebaseModel.getAllUsers(callback);
+//    public interface AddUserListener{
+//        void onComplete();
+//    }
+//
+//    public void addUser(User user, AddUserListener listener){
+//        firebaseModel.addUser(user,listener);
+//    }
+    public interface SignInListener{
+        void onComplete(boolean data);
     }
-
-    public interface AddUserListener{
-        void onComplete();
-    }
-
-    public void addUser(User user, AddUserListener listener){
-        firebaseModel.addUser(user,listener);
+    public void signIn(String email, String password,SignInListener callback){
+        userModel.signIn(email,password,callback);
     }
     public void getBitMap(String path, ImageView img) {
+
         firebaseStoreageModel.getImage(path,img);
+    }
+    public FirebaseUser getcurrent(){
+
+        return userModel.getUser();
+    }
+    public void signout(){
+
+        userModel.signout();
+    }
+    public void uploadImage(String name, byte[] data, Listener<String> listener) {
+        firebaseStoreageModel.uploadImage(name,data,listener);
     }
 
     public void refreshAllPosts()
@@ -78,6 +99,8 @@ public class Model {
 
         });
     }
+
+
 
 
 
