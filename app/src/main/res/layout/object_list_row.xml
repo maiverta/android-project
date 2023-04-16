@@ -8,7 +8,7 @@
     android:background="@color/white">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/postlistrow_image"
         android:layout_width="411dp"
         android:layout_height="213dp"
         android:scaleType="fitCenter"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/objectlistrow_name"
+            android:id="@+id/postlistrow_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -39,7 +39,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/objectlistrow_hand"
+            android:id="@+id/postlistrow_hand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -47,11 +47,25 @@
             android:text="2 Hand" />
 
         <TextView
-            android:id="@+id/objectlistrow_Location"
+            android:id="@+id/postlistrow_Location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:text="Ashdod" />
+
+        <TextView
+            android:id="@+id/postlistrow_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="price" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/postlistrow_editBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDIT"
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="8dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

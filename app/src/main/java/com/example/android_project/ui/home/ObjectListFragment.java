@@ -17,9 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -112,9 +109,9 @@ public class ObjectListFragment extends Fragment {
         TextView city;
         public ObjectViewHolder(@NonNull View itemView, ObjectListRecyclerAdapter.OnItemClickListener listener) {
             super(itemView);
-            name= itemView.findViewById(R.id.objectlistrow_name);
-            hand= itemView.findViewById(R.id.objectlistrow_hand);
-            city = itemView.findViewById(R.id.objectlistrow_Location);
+            name= itemView.findViewById(R.id.postlistrow_title);
+            hand= itemView.findViewById(R.id.postlistrow_hand);
+            city = itemView.findViewById(R.id.postlistrow_Location);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

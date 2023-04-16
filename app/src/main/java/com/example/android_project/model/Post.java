@@ -108,7 +108,7 @@ public class Post {
     }
 
     static final String ID = "id";
-    static final String NAME = "name";
+//    static final String NAME = "name";
     static final String TITLE = "title";
     static final String DESCRIPTION = "description";
     static final String PRICE = "price";

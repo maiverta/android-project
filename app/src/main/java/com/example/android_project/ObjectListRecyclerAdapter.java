@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_project.model.ObjectItem;
-import com.example.android_project.ui.home.ObjectListFragment;
 //import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,13 +23,14 @@ class ObjectViewHolder extends RecyclerView.ViewHolder{
     CheckBox cb;
     List<ObjectItem> data;
     ImageView objectImage;
+
     public ObjectViewHolder(@NonNull View itemView, ObjectListRecyclerAdapter.OnItemClickListener listener, List<ObjectItem> data) {
         super(itemView);
         this.data = data;
-        name= itemView.findViewById(R.id.objectlistrow_name);
-        hand= itemView.findViewById(R.id.objectlistrow_hand);
-        city = itemView.findViewById(R.id.objectlistrow_Location);
-        objectImage= itemView.findViewById(R.id.imageView);
+        name= itemView.findViewById(R.id.postlistrow_title);
+        hand= itemView.findViewById(R.id.postlistrow_hand);
+        city = itemView.findViewById(R.id.postlistrow_Location);
+        objectImage= itemView.findViewById(R.id.postlistrow_image);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

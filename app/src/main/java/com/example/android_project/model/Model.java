@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,6 +36,7 @@ public class Model {
     private FirebaseStoreageModel firebaseStoreageModel = new FirebaseStoreageModel();
     private Firestore firestore = new Firestore();
     private FirebaseUserModel userModel = new FirebaseUserModel();
+    private LiveData<List<Post>> postsList;
     AppLocalDbRepository localDb=AppLocalDb.getAppDb();
 
 
@@ -81,22 +83,22 @@ public class Model {
     }
 
     public void getAllOtherObjects(GetAllObjectsListener callback){
-        executor.execute(()->{
-             List<ObjectItem> data = (List<ObjectItem>) localDb.objectItemDao().getAllOthers("mai");
-            Log.d("ggg", "bbb" + data);
-
-            mainHandler.post(()->{
-                    callback.onComplete(data);
-            });
-        });
+//        executor.execute(()->{
+//             List<ObjectItem> data = (List<ObjectItem>) localDb.objectItemDao().getAllOthers("mai");
+//            Log.d("ggg", "bbb" + data);
+//
+//            mainHandler.post(()->{
+//                    callback.onComplete(data);
+//            });
+//        });
     }
     public void getMyObjects(GetAllObjectsListener callback){
-        executor.execute(()->{
-            List<ObjectItem> data = (List<ObjectItem>) localDb.objectItemDao().getMyObjects("mai");
-            mainHandler.post(()->{
-                callback.onComplete(data);
-            });
-        });
+//        executor.execute(()->{
+//            List<ObjectItem> data = (List<ObjectItem>) localDb.objectItemDao().getMyObjects("mai");
+//            mainHandler.post(()->{
+//                callback.onComplete(data);
+//            });
+//        });
     }
     public void addObject(ObjectItem objectItem, AddObjectsListener listener){
         executor.execute(()->{
@@ -182,7 +184,6 @@ public class Model {
 
         userModel.signout();
     }
-
     public void register(String email, String password,String name,ImageView IVPreviewImage, SignInListener callback){
         userModel.register(email,password,name,IVPreviewImage,callback);
     }
@@ -220,6 +221,13 @@ public class Model {
             });
 
         });
+    }
+    public LiveData<List<Post>> getAllPosts(){
+        if(postsList ==null){
+            postsList = localDb.postDao().getAll();
+        }
+        return postsList;
+
     }
 
 
