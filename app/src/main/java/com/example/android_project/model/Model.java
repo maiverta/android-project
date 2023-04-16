@@ -60,13 +60,13 @@ public class Model {
     public interface  GetPostListener{
         void onComplete(Post data);
     }
-    public interface GetCitiesListener{
-        void onComplete(String[] data);
-    }
-
 
     public interface SignInListener{
         void onComplete(boolean data);
+    }
+
+    public interface GetCitiesListener{
+        void onComplete(String[] data);
     }
 
     public void getCities(GetCitiesListener listener){

@@ -22,7 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android_project.databinding.FragmentObjectListBinding;
+import com.example.android_project.databinding.FragmentPostListBinding;
 import com.example.android_project.model.Model;
 import com.example.android_project.model.Post;
 //import com.example.android_project.ui.uploads.UploadsFragmentDirections;
@@ -35,7 +35,7 @@ public class PostsListFragment extends Fragment {
     List<Post> data = new LinkedList<>();
     PostsRecyclerAdapter adapter;
     PostsListFragmentViewModel postListViewModel;
-    FragmentObjectListBinding binding;
+    FragmentPostListBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class PostsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentObjectListBinding.inflate(inflater, container, false);
+        binding = FragmentPostListBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
         adapter = new PostsRecyclerAdapter(getLayoutInflater(), postListViewModel.getData().getValue(), false);

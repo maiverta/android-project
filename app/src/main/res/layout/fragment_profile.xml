@@ -41,7 +41,7 @@
                     app:srcCompat="@drawable/avatar" />
 
                 <ImageButton
-                    android:id="@+id/singup_cameraBtn"
+                    android:id="@+id/profile_cameraBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"

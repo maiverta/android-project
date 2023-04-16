@@ -20,10 +20,10 @@ import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PostViewFragment#newInstance} factory method to
+ * Use the {@link PostItemViewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PostViewFragment extends Fragment {
+public class PostItemViewFragment extends Fragment {
 
     Post post = new Post();
 
@@ -55,7 +55,7 @@ public class PostViewFragment extends Fragment {
 
     private String postId;
 
-    public PostViewFragment() {
+    public PostItemViewFragment() {
         // Required empty public constructor
     }
 
@@ -67,8 +67,8 @@ public class PostViewFragment extends Fragment {
      * @return A new instance of fragment ObjectItemView.
      */
     // TODO: Rename and change types and number of parameters
-    public static PostViewFragment newInstance(){
-        PostViewFragment fragment = new PostViewFragment();
+    public static PostItemViewFragment newInstance(){
+        PostItemViewFragment fragment = new PostItemViewFragment();
         Bundle args = new Bundle();
 //        args.putString("ID", objectId);
 
@@ -89,7 +89,7 @@ public class PostViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_post_view, container, false);
+        View view =  inflater.inflate(R.layout.fragment_post_item_view, container, false);
 //
         titleTv = view.findViewById(R.id.post_view_title);
         priceTv = view.findViewById(R.id.post_view_price);
