@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import com.example.android_project.databinding.FragmentObjectListBinding;
 import com.example.android_project.model.Model;
 import com.example.android_project.model.Post;
-import com.example.android_project.ui.uploads.UploadsFragmentDirections;
+//import com.example.android_project.ui.uploads.UploadsFragmentDirections;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -83,8 +83,8 @@ public class PostsListFragment extends Fragment {
 
                 Log.d("TAG", "ACTITY"+ pos);
                 Post post= data.get(pos);
-                UploadsFragmentDirections.ActionNavSlideshowToEditObjectFragment action = UploadsFragmentDirections.actionNavSlideshowToEditObjectFragment(post.id);
-                Navigation.findNavController(view).navigate(action);
+//                UploadsFragmentDirections.ActionNavSlideshowToEditObjectFragment action = UploadsFragmentDirections.actionNavSlideshowToEditObjectFragment(post.id);
+//                Navigation.findNavController(view).navigate(action);
             }
         });
 
