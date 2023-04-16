@@ -16,9 +16,28 @@ public interface PostDao {
 
     @Query("select * from Post where email=:emails")
     LiveData<List<Post>> getUsersPosts(String emails);
+
+//    @Query("select * from Post where email = :emails")
+//    List<ObjectItem> getMyObjects(String username);
+
+//    @Query("select * from Post where email != :username AND NOT isTaken")
+//    List<ObjectItem> getAllOthersPosts(String username);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Post ... posts);
 
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    void insertAll(ObjectItem ... objectItems);
+//
+//    @Query("select * from Post where id = :objectItemId")
+//    ObjectItem getById(String objectItemId);
+
     @Delete
     void delete(Post post);
+
+
+
+
+
+
 }

@@ -108,7 +108,9 @@ public class Firestore {
     }
 
     public void getPost(String postId, EditText et_title, EditText et_desc, EditText et_price,
-                        EditText et_res_name, EditText et_res_address, ImageView imgView){
+                        EditText et_hand, EditText et_city, EditText et_email, EditText et_phoneNumber,
+                        EditText et_notes,ImageView imgView){
+
         DocumentReference docRef = db.collection("posts").document(postId);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -120,9 +122,13 @@ public class Firestore {
                     et_title.setText(post.title);
                     et_desc.setText(post.description);
                     et_price.setText(post.price);
-                    et_res_name.setText(post.res_name);
-                    et_res_address.setText(post.res_address);
-                    Model.instance().getBitMap( post.pic_path,imgView);
+//                    et_name.setText(post.name);
+                    et_hand.setText(post.hand);
+                    et_city.setText(post.city);
+                    et_email.setText(post.email);
+                    et_phoneNumber.setText(post.phoneNumber);
+                    et_notes.setText(post.notes);
+                    Model.instance().getBitMap( post.imagePath,imgView);
 
                     if (document.exists()) {
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());

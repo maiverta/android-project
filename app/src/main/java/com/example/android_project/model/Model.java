@@ -46,7 +46,6 @@ public class Model {
     private Model(){
     }
 
-
     public interface Listener<T>{
         void onComplete(T data);
     }
@@ -59,61 +58,62 @@ public class Model {
     public interface GetAllUsersListener{
         void onComplete(List<User> data);
     }
+    public interface GetAllObjectsItemsListener{
+        void onComplete(List<ObjectItem> data);
+    }
+
     public interface  GetObjectListener{
         void onComplete(ObjectItem data);
     }
     public interface GetCitiesListener{
         void onComplete(String[] data);
     }
+
     public interface  AddObjectsListener{
         void onComplete();
     }
-    public interface GetAllObjectsItemsListener{
-        void onComplete(List<ObjectItem> data);
-    }
+
     public interface SignInListener{
         void onComplete(boolean data);
     }
 
     public void refreshAllObjects() {
     }
-    public void getAllOtherObjects(GetAllObjectsListener callback){
-        executor.execute(()->{
-             List<ObjectItem> data = localDb.objectItemDao().getAllOthers("mai");
-            Log.d("ggg", "bbb" + data);
 
-            mainHandler.post(()->{
-                    callback.onComplete(data);
-            });
-        });
-    }
-
-    public void getMyObjects(GetAllObjectsListener callback){
-        executor.execute(()->{
-            List<ObjectItem> data = localDb.objectItemDao().getMyObjects("mai");
-            mainHandler.post(()->{
-                callback.onComplete(data);
-            });
-        });
-    }
-
-    public void addObject(ObjectItem objectItem, AddObjectsListener listener){
-        executor.execute(()->{
-            localDb.objectItemDao().insertAll(objectItem);
-            mainHandler.post(()->{
-                listener.onComplete();
-            });
-        });    }
-
-    public void getObjectById(String id, GetObjectListener listener){
-        executor.execute(()->{
-            ObjectItem objectItem = localDb.objectItemDao().getById(id);
-            Log.d("q", "ggg" + objectItem);
-            mainHandler.post(()->{
-                listener.onComplete(objectItem);
-            });
-        });
-    }
+//    public void getAllOtherObjects(GetAllObjectsListener callback){
+//        executor.execute(()->{
+//             List<ObjectItem> data = localDb.objectItemDao().getAllOthers("mai");
+//            Log.d("ggg", "bbb" + data);
+//
+//            mainHandler.post(()->{
+//                    callback.onComplete(data);
+//            });
+//        });
+//    }
+//    public void getMyObjects(GetAllObjectsListener callback){
+//        executor.execute(()->{
+//            List<ObjectItem> data = localDb.objectItemDao().getMyObjects("mai");
+//            mainHandler.post(()->{
+//                callback.onComplete(data);
+//            });
+//        });
+//    }
+//    public void addObject(ObjectItem objectItem, AddObjectsListener listener){
+//        executor.execute(()->{
+//            localDb.objectItemDao().insertAll(objectItem);
+//            mainHandler.post(()->{
+//                listener.onComplete();
+//            });
+//        });    }
+//    public void getObjectById(String id, GetObjectListener listener){
+//        executor.execute(()->{
+//            ObjectItem objectItem = localDb.objectItemDao().getById(id);
+//            Log.d("q", "ggg" + objectItem);
+//            mainHandler.post(()->{
+//                listener.onComplete(objectItem);
+//            });
+//        });
+//    }
 
     public void getCities(GetCitiesListener listener){
         LinkedList<String> citiesToAdd = new LinkedList<>();
@@ -178,18 +178,17 @@ public class Model {
     public void signIn(String email, String password,SignInListener callback){
         userModel.signIn(email,password,callback);
     }
-
     public void signout(){
 
         userModel.signout();
     }
+
     public void getBitMap(String path, ImageView img) {
 
         firebaseStoreageModel.getImage(path,img);
     }
 
     public FirebaseUser getcurrent(){
-
         return userModel.getUser();
     }
 

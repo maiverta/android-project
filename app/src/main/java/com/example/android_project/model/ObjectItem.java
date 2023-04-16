@@ -11,20 +11,13 @@ public class ObjectItem {
     @NonNull
     public String id="";
     public String name="";
-
     public Integer hand= 0;
     public String city="";
-
     public String description="";
-
     public String notes="";
-
     public String imageUrl="";
-
     public String username="";
-
     public String phoneNumber="";
-
     public Boolean isTaken = false;
 
     public ObjectItem(){

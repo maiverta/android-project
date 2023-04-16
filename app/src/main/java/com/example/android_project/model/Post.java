@@ -22,15 +22,29 @@ import java.util.Map;
 public class Post {
     @PrimaryKey
     @NonNull
-    public String id;
-    public String title;
-    public String description;
+//    public String id;
+//    public String title;
+//    public String description;
+//    public String price;
+//    public String price_usd;
+//    public String res_name;
+//    public String res_address;
+//    public String email;
+//    public String pic_path;
+
+    public String id="";
+//    public String name="";
+    public String title="";
+    public String description="";
     public String price;
-    public String price_usd;
-    public String res_name;
-    public String res_address;
-    public String email;
-    public String pic_path;
+    public String priceUsd;
+    public Integer hand= 0;
+    public String city="";
+    public String email="";
+    public String phoneNumber="";
+    public Boolean isTaken = false;
+    public String notes="";
+    public String imagePath="";
 
     public void setLastUpdated(Long lastUpdated) {
         this.lastUpdated = lastUpdated;
@@ -42,30 +56,40 @@ public class Post {
     }
 
     public Post(String id, String title, String description, String price, String priceUsd,
-                String res_name, String res_address, String email, String pic_path) {
+                Integer hand, String city, String email,String phoneNumber,Boolean isTaken,
+                String notes,String imagePath) {
         this.id = id;
+//        this.name = name;
         this.title = title;
         this.description = description;
         this.price = price;
-        this.price_usd = priceUsd;
-        this.res_name = res_name;
-        this.res_address = res_address;
+        this.priceUsd = priceUsd;
+        this.hand = hand;
+        this.city = city;
         this.email=email;
-        this.pic_path=pic_path;
+        this.phoneNumber = phoneNumber;
+        this.isTaken = isTaken;
+        this.notes = notes;
+        this.imagePath=imagePath;
     }
 
-    public static void addPost(String id, String title, String description, Integer price,
-                               String res_name, String res_address, Double price_usd,String email,String picpath) {
+    public static void addPost(String id, String title, String description,
+                               String price, String priceUsd, Integer hand, String city, String email,
+                               String phoneNumber,Boolean isTaken, String notes,String imagePath) {
         Map<String, Object> data = new HashMap<>();
         data.put("id", id);
-        data.put("email", email);
+//        data.put("name", name );
         data.put("title", title);
         data.put("description", description);
         data.put("price", price);
-        data.put("res_name", res_name);
-        data.put("res_address",res_address);
-        data.put("price_usd",price_usd);
-        data.put("pic_path",picpath);
+        data.put("priceUsd",priceUsd);
+        data.put("hand",hand);
+        data.put("city",city);
+        data.put("email", email);
+        data.put("phoneNumber",phoneNumber);
+        data.put("isTaken",isTaken);
+        data.put("notes",notes );
+        data.put("imagePath",imagePath);
         data.put("lastUpdated", FieldValue.serverTimestamp());
         Firestore.instance().getDb().collection("posts").document(id).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -84,29 +108,39 @@ public class Post {
     }
 
     static final String ID = "id";
+    static final String NAME = "name";
     static final String TITLE = "title";
     static final String DESCRIPTION = "description";
     static final String PRICE = "price";
-    static final String PRICEUSD = "price_usd";
-    static final String RESNAME = "res_name";
-    static final String RESADDRESS = "res_address";
+    static final String PRICE_USD = "priceUsd";
+    static final String HAND = "hand";
+    static final String CITY = "city";
     static final String EMAIL = "email";
-    static final String PICTURE = "pic_path";
+    static final String PHONE_NUMBER = "phoneNumber";
+    static final String IS_TAKEN = "isTaken";
+    static final String NOTES = "notes";
+    static final String IMAGE_PATH = "imagePath";
     static final String LAST_UPDATED = "lastUpdated";
     static final String LOCAL_LAST_UPDATED = "posts_local_last_update";
 
     public static Post fromJson(Map<String,Object> json){
         String id = (String)json.get(ID);
+//        String name = (String) json.get(NAME);
         String title = (String)json.get(TITLE);
         String description = (String)json.get(DESCRIPTION);
         String price = String.valueOf(json.get(PRICE));
-        String res_name = (String) json.get(RESNAME);
-        String res_address = (String) json.get(RESADDRESS);
+        String priceUsd = String.format("%.2f", json.get(PRICE_USD));
+        Integer hand = (Integer)json.get(HAND);
+        String city = (String)json.get(CITY);
         String email = (String)json.get(EMAIL);
-        String pic_path = (String)json.get(PICTURE);
+        String phoneNumber = (String)json.get(PHONE_NUMBER);
+        Boolean isTaken = (boolean)json.get(IS_TAKEN);
+        String notes = (String)json.get(NOTES);
+        String imagePath = (String)json.get(IMAGE_PATH);
         Timestamp time = (Timestamp) json.get(LAST_UPDATED);
-        String priceUsd = String.format("%.2f", json.get(PRICEUSD));
-        Post post = new Post(id, title, description, price, priceUsd, res_name, res_address ,email,pic_path);
+
+        Post post = new Post( id, title, description, price, priceUsd, hand,
+                city, email, phoneNumber, isTaken, notes, imagePath);
         post.setLastUpdated(time.getSeconds());
 
         return post;
@@ -138,25 +172,38 @@ public class Post {
         return price;
     }
 
-    public String getPrice_usd() {
-        return price_usd;
+    public String getPriceUsd() {
+        return priceUsd;
     }
 
-    public String getRes_name() {
-        return res_name;
+    public Integer getHand() {
+        return hand;
     }
 
-    public String getRes_address() {
-        return res_address;
+    public Boolean getTaken() {
+        return isTaken;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getPic_path() {
-        return pic_path;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
 
     public void setId(@NonNull String id) {
         this.id = id;
@@ -174,24 +221,36 @@ public class Post {
         this.price = price;
     }
 
-    public void setPrice_usd(String price_usd) {
-        this.price_usd = price_usd;
+    public void setPriceUsd(String priceUsd) {
+        this.priceUsd = priceUsd;
     }
 
-    public void setRes_name(String res_name) {
-        this.res_name = res_name;
+    public void setHand(Integer hand) {
+        this.hand = hand;
     }
 
-    public void setRes_address(String res_address) {
-        this.res_address = res_address;
+    public void setTaken(Boolean taken) {
+        isTaken = taken;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setPic_path(String pic_path) {
-        this.pic_path = pic_path;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public void setImagePath(String pic_path) {
+        this.imagePath = pic_path;
     }
 
     public Long getLastUpdated() {
