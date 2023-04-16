@@ -20,22 +20,22 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class Model {
+
     // create it just one instance - singletone
     private static final Model _instance = new Model();
-
     // Create new thread for async
     private Executor executor = Executors.newSingleThreadExecutor();
-
     // return to main thread
     private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
-    public interface Listener<T>{
-        void onComplete(T data);
-    }
+    private FirebaseModel firebaseModel = new FirebaseModel();
+    private FirebaseStoreageModel firebaseStoreageModel = new FirebaseStoreageModel();
+    private Firestore firestore = new Firestore();
+    private FirebaseUserModel userModel = new FirebaseUserModel();
+    AppLocalDbRepository localDb=AppLocalDb.getAppDb();
 
-    public interface GetAllObjectsItemsListener{
-        void onComplete(List<ObjectItem> data);
-    }
 
     public static Model instance(){
         return _instance;
@@ -43,15 +43,38 @@ public class Model {
 
     // no on can cretae multiple instances it private
     private Model(){
-//        for(int i=0; i< 20; i++){
-//            addObject(new ObjectItem("name" + i,i%2, "Ashdod", "", new User("ma", "05227355445"), "Description" + i, "notesss" +i+ " notes") );
-//        }
     }
 
-    AppLocalDbRepository localDb =   AppLocalDb.getAppDb();
 
+    public interface Listener<T>{
+        void onComplete(T data);
+    }
     public interface  GetAllObjectsListener{
         void onComplete(List<ObjectItem> data);
+    }
+    public interface GetAllPostsListener{
+        void onComplete(List<Post> data);
+    }
+    public interface GetAllUsersListener{
+        void onComplete(List<User> data);
+    }
+    public interface  GetObjectListener{
+        void onComplete(ObjectItem data);
+    }
+    public interface GetCitiesListener{
+        void onComplete(String[] data);
+    }
+    public interface  AddObjectsListener{
+        void onComplete();
+    }
+    public interface GetAllObjectsItemsListener{
+        void onComplete(List<ObjectItem> data);
+    }
+    public interface SignInListener{
+        void onComplete(boolean data);
+    }
+
+    public void refreshAllObjects() {
     }
     public void getAllOtherObjects(GetAllObjectsListener callback){
         executor.execute(()->{
@@ -73,16 +96,6 @@ public class Model {
         });
     }
 
-    public void refreshAllObjects()
-    {
-
-
-    }
-
-    public interface  AddObjectsListener{
-        void onComplete();
-    }
-
     public void addObject(ObjectItem objectItem, AddObjectsListener listener){
         executor.execute(()->{
             localDb.objectItemDao().insertAll(objectItem);
@@ -91,10 +104,6 @@ public class Model {
             });
         });    }
 
-
-    public interface  GetObjectListener{
-        void onComplete(ObjectItem data);
-    }
     public void getObjectById(String id, GetObjectListener listener){
         executor.execute(()->{
             ObjectItem objectItem = localDb.objectItemDao().getById(id);
@@ -105,9 +114,6 @@ public class Model {
         });
     }
 
-    public interface GetCitiesListener{
-        void onComplete(String[] data);
-    }
     public void getCities(GetCitiesListener listener){
         LinkedList<String> citiesToAdd = new LinkedList<>();
 
@@ -167,4 +173,50 @@ public class Model {
 
         });
     }
+
+    public void signIn(String email, String password,SignInListener callback){
+        userModel.signIn(email,password,callback);
+    }
+
+    public void signout(){
+
+        userModel.signout();
+    }
+    public void getBitMap(String path, ImageView img) {
+
+        firebaseStoreageModel.getImage(path,img);
+    }
+
+    public FirebaseUser getcurrent(){
+
+        return userModel.getUser();
+    }
+
+    public void uploadImage(String name, byte[] data, Listener<String> listener) {
+        firebaseStoreageModel.uploadImage(name,data,listener);
+    }
+
+    public void refreshAllPosts()
+    {
+        //get local last update
+        Long localLastUpdate = Post.getLocalLastUpdate();
+        //get all  posts since
+        firestore.getAllPostsSince(localLastUpdate,list->{
+            executor.execute(()->{
+                Long time = localLastUpdate;
+                for(Post ps:list){
+                    //insert new records into ROOM
+                    localDb.postDao().insertAll(ps);
+                    if(time<ps.getLastUpdated()){
+                        time=ps.getLastUpdated();
+                    }
+                }
+                // update local last update
+                Post.setLocalLastUpdate(time);
+            });
+
+        });
+    }
+
+
 }
