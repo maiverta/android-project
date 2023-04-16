@@ -29,8 +29,8 @@ public interface PostDao {
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
 //    void insertAll(ObjectItem ... objectItems);
 //
-//    @Query("select * from Post where id = :objectItemId")
-//    ObjectItem getById(String objectItemId);
+    @Query("select * from Post where id = :postId")
+    Post getById(String postId);
 
     @Delete
     void delete(Post post);

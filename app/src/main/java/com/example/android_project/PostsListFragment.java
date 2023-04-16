@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,13 +25,14 @@ import android.view.ViewGroup;
 import com.example.android_project.databinding.FragmentObjectListBinding;
 import com.example.android_project.model.Model;
 import com.example.android_project.model.Post;
+import com.example.android_project.ui.uploads.UploadsFragmentDirections;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class PostsListFragment extends Fragment {
 
-    //    List<Post> data = new LinkedList<>();
+    List<Post> data = new LinkedList<>();
     PostsRecyclerAdapter adapter;
     PostsListFragmentViewModel postListViewModel;
     FragmentObjectListBinding binding;
@@ -74,6 +76,17 @@ public class PostsListFragment extends Fragment {
 //            data = obList;
 //            adapter.setData(data);
 //        });
+
+        adapter.setOnPostClickListener(new PostsRecyclerAdapter.OnPostClickListener() {
+            @Override
+            public void onItemClick(int pos) { // מה קורה שלוחצים על שורה
+
+                Log.d("TAG", "ACTITY"+ pos);
+                Post post= data.get(pos);
+                UploadsFragmentDirections.ActionNavSlideshowToEditObjectFragment action = UploadsFragmentDirections.actionNavSlideshowToEditObjectFragment(post.id);
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
 
         return view;
     }

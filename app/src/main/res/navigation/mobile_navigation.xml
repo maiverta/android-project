@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_add_object" />
     <fragment
         android:id="@+id/objectItemViewFragment"
-        android:name="com.example.android_project.ObjectItemViewFragment"
+        android:name="com.example.android_project.PostViewFragment"
         android:label="ObjectItemViewFragment" >
         <argument
             android:name="objectId"

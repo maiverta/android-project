@@ -38,6 +38,7 @@ public class Model {
     private FirebaseUserModel userModel = new FirebaseUserModel();
     private LiveData<List<Post>> postsList;
     AppLocalDbRepository localDb=AppLocalDb.getAppDb();
+    List<Post> data = new LinkedList<>();
 
 
     public static Model instance(){
@@ -51,70 +52,21 @@ public class Model {
     public interface Listener<T>{
         void onComplete(T data);
     }
-    public interface  GetAllObjectsListener{
-        void onComplete(List<ObjectItem> data);
-    }
+
     public interface GetAllPostsListener{
         void onComplete(List<Post> data);
     }
-    public interface GetAllUsersListener{
-        void onComplete(List<User> data);
-    }
-    public interface GetAllObjectsItemsListener{
-        void onComplete(List<ObjectItem> data);
-    }
 
-    public interface  GetObjectListener{
-        void onComplete(ObjectItem data);
+    public interface  GetPostListener{
+        void onComplete(Post data);
     }
     public interface GetCitiesListener{
         void onComplete(String[] data);
     }
 
-    public interface  AddObjectsListener{
-        void onComplete();
-    }
 
     public interface SignInListener{
         void onComplete(boolean data);
-    }
-
-    public void refreshAllObjects() {
-    }
-
-    public void getAllOtherObjects(GetAllObjectsListener callback){
-//        executor.execute(()->{
-//             List<ObjectItem> data = (List<ObjectItem>) localDb.objectItemDao().getAllOthers("mai");
-//            Log.d("ggg", "bbb" + data);
-//
-//            mainHandler.post(()->{
-//                    callback.onComplete(data);
-//            });
-//        });
-    }
-    public void getMyObjects(GetAllObjectsListener callback){
-//        executor.execute(()->{
-//            List<ObjectItem> data = (List<ObjectItem>) localDb.objectItemDao().getMyObjects("mai");
-//            mainHandler.post(()->{
-//                callback.onComplete(data);
-//            });
-//        });
-    }
-    public void addObject(ObjectItem objectItem, AddObjectsListener listener){
-        executor.execute(()->{
-            localDb.objectItemDao().insertAll(objectItem);
-            mainHandler.post(()->{
-                listener.onComplete();
-            });
-        });    }
-    public void getObjectById(String id, GetObjectListener listener){
-        executor.execute(()->{
-            ObjectItem objectItem = localDb.objectItemDao().getById(id);
-            Log.d("q", "ggg" + objectItem);
-            mainHandler.post(()->{
-                listener.onComplete(objectItem);
-            });
-        });
     }
 
     public void getCities(GetCitiesListener listener){
@@ -181,7 +133,6 @@ public class Model {
         userModel.signIn(email,password,callback);
     }
     public void signout(){
-
         userModel.signout();
     }
     public void register(String email, String password,String name,ImageView IVPreviewImage, SignInListener callback){
@@ -228,6 +179,21 @@ public class Model {
         }
         return postsList;
 
+    }
+
+    public void getPostById(String id, GetPostListener listener){
+        executor.execute(()->{
+            Post post = localDb.postDao().getById(id);
+            Log.d("q", "ggg" + post);
+            mainHandler.post(()->{
+                listener.onComplete(post);
+            });
+        });
+    }
+
+    public void addPost(Post post)
+    {
+        data.add(post);
     }
 
 

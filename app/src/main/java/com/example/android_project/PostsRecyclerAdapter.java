@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android_project.model.FirebaseStoreageModel;
 import com.example.android_project.model.Firestore;
 import com.example.android_project.model.Model;
-import com.example.android_project.model.ObjectItem;
+//import com.example.android_project.model.ObjectItem;
 import com.example.android_project.model.Post;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -81,6 +81,7 @@ class PostViewHolder extends RecyclerView.ViewHolder{
 }
 
 public class PostsRecyclerAdapter extends  RecyclerView.Adapter<PostViewHolder>{
+    OnPostClickListener listener;
 
     LayoutInflater inflater;
     List<Post> data;
@@ -90,6 +91,13 @@ public class PostsRecyclerAdapter extends  RecyclerView.Adapter<PostViewHolder>{
     {
         this.data = data;
         notifyDataSetChanged();
+    }
+    public void setOnPostClickListener(OnPostClickListener listener) {
+        this.listener = listener;
+
+    }
+    public static interface OnPostClickListener{
+        void onItemClick(int pos);
     }
 
     public PostsRecyclerAdapter(LayoutInflater inflater, List<Post> data, boolean is_edit_post )
@@ -119,4 +127,6 @@ public class PostsRecyclerAdapter extends  RecyclerView.Adapter<PostViewHolder>{
         }
         return data.size();
     }
+
+
 }
