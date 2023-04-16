@@ -3,6 +3,7 @@ package com.example.android_project.model;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.core.os.HandlerCompat;
 
