@@ -3,6 +3,8 @@ package com.example.android_project;
 import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +31,10 @@ import androidx.navigation.Navigation;
 
 import com.example.android_project.model.Firestore;
 import com.example.android_project.model.Model;
+import com.example.android_project.model.Post;
 import com.google.firebase.firestore.DocumentReference;
+
+import java.io.ByteArrayOutputStream;
 
 public class AddPostFragment extends Fragment {
     int SELECT_PICTURE = 200;
@@ -112,6 +117,15 @@ public class AddPostFragment extends Fragment {
 
             DocumentReference ref = Firestore.instance().getDb().collection("posts").document();
             String collection_id = ref.getId();
+
+            String email = Model.instance().getcurrent().getEmail();
+            String imagePath = collection_id+"_"+title+"_"+email.split("@")[0];
+            Post.addPost(collection_id, title, desc,Integer.parseInt(hand) , city, email, phone,
+                    Boolean.FALSE,notes,imagePath);
+            Bitmap bmap = ((BitmapDrawable) IVPreviewImage.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
 
 
             Toast.makeText(getContext(),

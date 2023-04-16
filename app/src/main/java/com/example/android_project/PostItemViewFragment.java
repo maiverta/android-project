@@ -33,8 +33,6 @@ public class PostItemViewFragment extends Fragment {
     TextView descriptionTv;
     String description;
 
-    TextView priceTv;
-    String price;
 
     TextView handTv;
     Number hand;
@@ -92,7 +90,6 @@ public class PostItemViewFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_post_item_view, container, false);
 //
         titleTv = view.findViewById(R.id.post_view_title);
-        priceTv = view.findViewById(R.id.post_view_price);
         handTv = view.findViewById(R.id.post_view_hand);
         descriptionTv= view.findViewById(R.id.post_view_description);
         notesTv= view.findViewById(R.id.post_view_notes);
@@ -115,7 +112,6 @@ public class PostItemViewFragment extends Fragment {
 //        imageUrlTv.setText(objectItem.getImageUrl());
         titleTv.setText(post.getTitle());
         descriptionTv.setText(post.getDescription());
-        priceTv.setText(post.getPrice().toString());
         handTv.setText(post.getHand().toString());
         cityTv.setText(post.getCity());
         notesTv.setText(post.getNotes());

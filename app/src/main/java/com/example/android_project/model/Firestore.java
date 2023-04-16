@@ -65,26 +65,6 @@ public class Firestore {
                 });
     }
 
-//    public void getAllResturantsSince(Long since,Model.GetAllResturantsListener callback){
-//        db.collection("resturants")
-//                .whereGreaterThanOrEqualTo(Resturant.LAST_UPDATED,new Timestamp(since,0))
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        List<Resturant> list = new LinkedList<>();
-//                        if (task.isSuccessful()){
-//                            QuerySnapshot jsonsList = task.getResult();
-//                            for (DocumentSnapshot json: jsonsList){
-//                                Resturant st = Resturant.fromJson(json.getData());
-//                                list.add(st);
-//                            }
-//                        }
-//                        callback.onComplete(list);
-//                    }
-//                });
-//    }
-
 
     public void getUserPostsSince(Long since,String userEmail,Model.GetAllPostsListener callback){
         db.collection("posts")
@@ -121,7 +101,6 @@ public class Firestore {
                     Post post = Post.fromJson(document.getData());
                     et_title.setText(post.title);
                     et_desc.setText(post.description);
-                    et_price.setText(post.price);
 //                    et_name.setText(post.name);
                     et_hand.setText(post.hand);
                     et_city.setText(post.city);

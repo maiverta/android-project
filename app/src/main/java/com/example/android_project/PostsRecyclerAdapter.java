@@ -69,8 +69,6 @@ class PostViewHolder extends RecyclerView.ViewHolder{
         hand.setText(post.hand);
         title.setText(post.title);
         city.setText(post.city);
-        price.setText(post.price + " NIS");
-        price.setTag(pos);
         FirebaseStorage.getInstance().getReference().child("images/").child(post.imagePath+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

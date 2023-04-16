@@ -22,22 +22,11 @@ import java.util.Map;
 public class Post {
     @PrimaryKey
     @NonNull
-//    public String id;
-//    public String title;
-//    public String description;
-//    public String price;
-//    public String price_usd;
-//    public String res_name;
-//    public String res_address;
-//    public String email;
-//    public String pic_path;
 
     public String id="";
 //    public String name="";
     public String title="";
     public String description="";
-    public String price;
-    public String priceUsd;
     public Integer hand= 0;
     public String city="";
     public String email="";
@@ -55,15 +44,13 @@ public class Post {
 
     }
 
-    public Post(String id, String title, String description, String price, String priceUsd,
+    public Post(String id, String title, String description,
                 Integer hand, String city, String email,String phoneNumber,Boolean isTaken,
                 String notes,String imagePath) {
         this.id = id;
 //        this.name = name;
         this.title = title;
         this.description = description;
-        this.price = price;
-        this.priceUsd = priceUsd;
         this.hand = hand;
         this.city = city;
         this.email=email;
@@ -74,15 +61,13 @@ public class Post {
     }
 
     public static void addPost(String id, String title, String description,
-                               String price, String priceUsd, Integer hand, String city, String email,
+                              Integer hand, String city, String email,
                                String phoneNumber,Boolean isTaken, String notes,String imagePath) {
         Map<String, Object> data = new HashMap<>();
         data.put("id", id);
 //        data.put("name", name );
         data.put("title", title);
         data.put("description", description);
-        data.put("price", price);
-        data.put("priceUsd",priceUsd);
         data.put("hand",hand);
         data.put("city",city);
         data.put("email", email);
@@ -111,8 +96,6 @@ public class Post {
 //    static final String NAME = "name";
     static final String TITLE = "title";
     static final String DESCRIPTION = "description";
-    static final String PRICE = "price";
-    static final String PRICE_USD = "priceUsd";
     static final String HAND = "hand";
     static final String CITY = "city";
     static final String EMAIL = "email";
@@ -128,8 +111,6 @@ public class Post {
 //        String name = (String) json.get(NAME);
         String title = (String)json.get(TITLE);
         String description = (String)json.get(DESCRIPTION);
-        String price = String.valueOf(json.get(PRICE));
-        String priceUsd = String.format("%.2f", json.get(PRICE_USD));
         Integer hand = (Integer)json.get(HAND);
         String city = (String)json.get(CITY);
         String email = (String)json.get(EMAIL);
@@ -139,7 +120,7 @@ public class Post {
         String imagePath = (String)json.get(IMAGE_PATH);
         Timestamp time = (Timestamp) json.get(LAST_UPDATED);
 
-        Post post = new Post( id, title, description, price, priceUsd, hand,
+        Post post = new Post( id, title, description, hand,
                 city, email, phoneNumber, isTaken, notes, imagePath);
         post.setLastUpdated(time.getSeconds());
 
@@ -166,14 +147,6 @@ public class Post {
 
     public String getDescription() {
         return description;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public String getPriceUsd() {
-        return priceUsd;
     }
 
     public Integer getHand() {
@@ -217,13 +190,6 @@ public class Post {
         this.description = description;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public void setPriceUsd(String priceUsd) {
-        this.priceUsd = priceUsd;
-    }
 
     public void setHand(Integer hand) {
         this.hand = hand;
