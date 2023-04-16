@@ -4,17 +4,16 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.android_project.Main2Activity;
 import com.example.android_project.MyApplication;
 
-
-@Database(entities = {ObjectItem.class}, version = 2)
+@Database(entities = {Post.class}, version = 55)
 abstract class AppLocalDbRepository extends RoomDatabase {
-    // abstract fnction that return the dao
-    public abstract ObjectItemDao objectItemDao();
+    //    public abstract UserDao userDao();
+    public abstract PostDao postDao();
+
 }
 
-public class AppLocalDb {
+public class AppLocalDb{
     static public AppLocalDbRepository getAppDb() {
         return Room.databaseBuilder(MyApplication.getMyContext(),
                         AppLocalDbRepository.class,

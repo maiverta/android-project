@@ -3,8 +3,10 @@ package com.example.android_project.model;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,22 +22,24 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class Model {
+
     // create it just one instance - singletone
     private static final Model _instance = new Model();
-
     // Create new thread for async
     private Executor executor = Executors.newSingleThreadExecutor();
-
     // return to main thread
     private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
-    public interface Listener<T>{
-        void onComplete(T data);
-    }
+    private FirebaseModel firebaseModel = new FirebaseModel();
+    private FirebaseStoreageModel firebaseStoreageModel = new FirebaseStoreageModel();
+    private Firestore firestore = new Firestore();
+    private FirebaseUserModel userModel = new FirebaseUserModel();
+    private LiveData<List<Post>> postsList;
+    AppLocalDbRepository localDb=AppLocalDb.getAppDb();
+    List<Post> data = new LinkedList<>();
 
-    public interface GetAllObjectsItemsListener{
-        void onComplete(List<ObjectItem> data);
-    }
 
     public static Model instance(){
         return _instance;
@@ -43,71 +47,28 @@ public class Model {
 
     // no on can cretae multiple instances it private
     private Model(){
-//        for(int i=0; i< 20; i++){
-//            addObject(new ObjectItem("name" + i,i%2, "Ashdod", "", new User("ma", "05227355445"), "Description" + i, "notesss" +i+ " notes") );
-//        }
     }
 
-    AppLocalDbRepository localDb =   AppLocalDb.getAppDb();
-
-    public interface  GetAllObjectsListener{
-        void onComplete(List<ObjectItem> data);
-    }
-    public void getAllOtherObjects(GetAllObjectsListener callback){
-        executor.execute(()->{
-             List<ObjectItem> data = localDb.objectItemDao().getAllOthers("mai");
-            Log.d("ggg", "bbb" + data);
-
-            mainHandler.post(()->{
-                    callback.onComplete(data);
-            });
-        });
+    public interface Listener<T>{
+        void onComplete(T data);
     }
 
-    public void getMyObjects(GetAllObjectsListener callback){
-        executor.execute(()->{
-            List<ObjectItem> data = localDb.objectItemDao().getMyObjects("mai");
-            mainHandler.post(()->{
-                callback.onComplete(data);
-            });
-        });
+    public interface GetAllPostsListener{
+        void onComplete(List<Post> data);
     }
 
-    public void refreshAllObjects()
-    {
-
-
+    public interface  GetPostListener{
+        void onComplete(Post data);
     }
-
-    public interface  AddObjectsListener{
-        void onComplete();
-    }
-
-    public void addObject(ObjectItem objectItem, AddObjectsListener listener){
-        executor.execute(()->{
-            localDb.objectItemDao().insertAll(objectItem);
-            mainHandler.post(()->{
-                listener.onComplete();
-            });
-        });    }
-
-
-    public interface  GetObjectListener{
-        void onComplete(ObjectItem data);
-    }
-    public void getObjectById(String id, GetObjectListener listener){
-        executor.execute(()->{
-            ObjectItem objectItem = localDb.objectItemDao().getById(id);
-            Log.d("q", "ggg" + objectItem);
-            mainHandler.post(()->{
-                listener.onComplete(objectItem);
-            });
-        });
-    }
-
     public interface GetCitiesListener{
         void onComplete(String[] data);
     }
+
+
+    public interface SignInListener{
+        void onComplete(boolean data);
+    }
+
     public void getCities(GetCitiesListener listener){
         LinkedList<String> citiesToAdd = new LinkedList<>();
 
@@ -167,4 +128,73 @@ public class Model {
 
         });
     }
+
+    public void signIn(String email, String password,SignInListener callback){
+        userModel.signIn(email,password,callback);
+    }
+    public void signout(){
+        userModel.signout();
+    }
+    public void register(String email, String password,String name,ImageView IVPreviewImage, SignInListener callback){
+        userModel.register(email,password,name,IVPreviewImage,callback);
+    }
+
+    public void getBitMap(String path, ImageView img) {
+
+        firebaseStoreageModel.getImage(path,img);
+    }
+
+    public FirebaseUser getcurrent(){
+        return userModel.getUser();
+    }
+
+    public void uploadImage(String name, byte[] data, Listener<String> listener) {
+        firebaseStoreageModel.uploadImage(name,data,listener);
+    }
+
+    public void refreshAllPosts()
+    {
+        //get local last update
+        Long localLastUpdate = Post.getLocalLastUpdate();
+        //get all  posts since
+        firestore.getAllPostsSince(localLastUpdate,list->{
+            executor.execute(()->{
+                Long time = localLastUpdate;
+                for(Post ps:list){
+                    //insert new records into ROOM
+                    localDb.postDao().insertAll(ps);
+                    if(time<ps.getLastUpdated()){
+                        time=ps.getLastUpdated();
+                    }
+                }
+                // update local last update
+                Post.setLocalLastUpdate(time);
+            });
+
+        });
+    }
+    public LiveData<List<Post>> getAllPosts(){
+        if(postsList ==null){
+            postsList = localDb.postDao().getAll();
+        }
+        return postsList;
+
+    }
+
+    public void getPostById(String id, GetPostListener listener){
+        executor.execute(()->{
+            Post post = localDb.postDao().getById(id);
+            Log.d("q", "ggg" + post);
+            mainHandler.post(()->{
+                listener.onComplete(post);
+            });
+        });
+    }
+
+    public void addPost(Post post)
+    {
+        data.add(post);
+    }
+
+
 }

@@ -6,11 +6,11 @@
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
     android:background="@color/white"
-    tools:context=".ObjectItemViewFragment">
+    tools:context=".PostViewFragment">
 
 
     <ImageView
-        android:id="@+id/object_item_view_imageUrl"
+        android:id="@+id/post_view_image"
         android:layout_width="362dp"
         android:layout_height="193dp"
         android:scaleType="fitCenter"
@@ -23,15 +23,15 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="376dp"
-        android:layout_height="198dp"
+        android:layout_width="380dp"
+        android:layout_height="312dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/object_item_view_imageUrl">
+        app:layout_constraintTop_toBottomOf="@+id/post_view_image">
 
         <TextView
-            android:id="@+id/object_item_view_name"
+            android:id="@+id/post_view_title"
             android:layout_width="205dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -44,7 +44,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/object_item_view_city"
+            android:id="@+id/post_view_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -53,7 +53,7 @@
             android:text="City" />
 
         <TextView
-            android:id="@+id/object_item_view_hand"
+            android:id="@+id/post_view_hand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -73,7 +73,7 @@
 
 
         <TextView
-            android:id="@+id/object_item_view_description"
+            android:id="@+id/post_view_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -85,13 +85,14 @@
             android:id="@+id/object_item_view_notes_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:text="Notes"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/object_item_view_notes"
+            android:id="@+id/post_view_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -100,6 +101,12 @@
              dsfsfskf
              sfsfdlclcdldddcll" />
 
+        <TextView
+            android:id="@+id/post_view_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="price" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -107,16 +114,16 @@
 
         android:layout_width="384dp"
         android:layout_height="147dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         tools:layout_editor_absoluteX="0dp">
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="41dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/call_phone_icon" />
+            android:layout_width="42dp"
+            android:layout_height="48dp"
+            android:src="@drawable/email" />
 
         <TextView
             android:id="@+id/object_item_view_username"
@@ -131,12 +138,18 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/object_item_view_user_phonenumber"
+            android:id="@+id/post_view_phonenumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="0522735536" />
+
+        <TextView
+            android:id="@+id/post_view_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="email" />
 
     </LinearLayout>
 
