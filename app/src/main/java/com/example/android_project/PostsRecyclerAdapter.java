@@ -46,21 +46,21 @@ class PostViewHolder extends RecyclerView.ViewHolder{
         price = itemView.findViewById(R.id.postlistrow_price);
 //        email = itemView.findViewById(R.id.postslistrow_email);
 //        Button convert = itemView.findViewById(R.id.postslistrow_convert_btn);
-        Button editPostBtn = itemView.findViewById(R.id.postlistrow_editBtn);
-        if (!is_edit_post) {
-            editPostBtn.setVisibility(View.GONE);
-        }
+//        Button editPostBtn = itemView.findViewById(R.id.postlistrow_editBtn);
+//        if (!is_edit_post) {
+//            editPostBtn.setVisibility(View.GONE);
+//        }
         this.data = data;
 
-        editPostBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                int pos = (int)price.getTag();
-                Post post = data.get(pos);
-                Bundle bundle = new Bundle();
-                bundle.putString("post_id", post.id);
-//                Navigation.findNavController(v).navigate(R.id.action_userPostsListFragment_to_editPostFragment, bundle);
-            }
-        });
+//        editPostBtn.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                int pos = (int)price.getTag();
+//                Post post = data.get(pos);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("post_id", post.id);
+////                Navigation.findNavController(v).navigate(R.id.action_userPostsListFragment_to_editPostFragment, bundle);
+//            }
+//        });
     }
 
     public void bind(Post post, int pos) {
