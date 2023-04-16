@@ -41,7 +41,7 @@
                     android:src="@drawable/ic_baseline_image_search_24" />
 
                 <ImageButton
-                    android:id="@+id/cameraButton"
+                    android:id="@+id/singup_cameraBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"

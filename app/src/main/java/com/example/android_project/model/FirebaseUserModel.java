@@ -46,7 +46,7 @@ public class FirebaseUserModel {
                         });
     }
 
-    public void register(String email, String password,String firstname,String lastname,ImageView IVPreviewImage, Model.SignInListener callback) {
+    public void register(String email, String password,String name,ImageView IVPreviewImage, Model.SignInListener callback) {
 
         users.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -64,7 +64,7 @@ public class FirebaseUserModel {
                             Model.instance().uploadImage(Model.instance().getcurrent().getUid()+"_",data,url->Log.d("TAG","Start to upload"));
 
                             FirebaseUser user =Model.instance().getcurrent();
-                            UserProfileChangeRequest profileupdate = new UserProfileChangeRequest.Builder().setDisplayName(firstname).build();
+                            UserProfileChangeRequest profileupdate = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
                             user.updateProfile(profileupdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

@@ -80,40 +80,40 @@ public class Model {
     public void refreshAllObjects() {
     }
 
-//    public void getAllOtherObjects(GetAllObjectsListener callback){
-//        executor.execute(()->{
-//             List<ObjectItem> data = localDb.objectItemDao().getAllOthers("mai");
-//            Log.d("ggg", "bbb" + data);
-//
-//            mainHandler.post(()->{
-//                    callback.onComplete(data);
-//            });
-//        });
-//    }
-//    public void getMyObjects(GetAllObjectsListener callback){
-//        executor.execute(()->{
-//            List<ObjectItem> data = localDb.objectItemDao().getMyObjects("mai");
-//            mainHandler.post(()->{
-//                callback.onComplete(data);
-//            });
-//        });
-//    }
-//    public void addObject(ObjectItem objectItem, AddObjectsListener listener){
-//        executor.execute(()->{
-//            localDb.objectItemDao().insertAll(objectItem);
-//            mainHandler.post(()->{
-//                listener.onComplete();
-//            });
-//        });    }
-//    public void getObjectById(String id, GetObjectListener listener){
-//        executor.execute(()->{
-//            ObjectItem objectItem = localDb.objectItemDao().getById(id);
-//            Log.d("q", "ggg" + objectItem);
-//            mainHandler.post(()->{
-//                listener.onComplete(objectItem);
-//            });
-//        });
-//    }
+    public void getAllOtherObjects(GetAllObjectsListener callback){
+        executor.execute(()->{
+             List<ObjectItem> data = (List<ObjectItem>) localDb.objectItemDao().getAllOthers("mai");
+            Log.d("ggg", "bbb" + data);
+
+            mainHandler.post(()->{
+                    callback.onComplete(data);
+            });
+        });
+    }
+    public void getMyObjects(GetAllObjectsListener callback){
+        executor.execute(()->{
+            List<ObjectItem> data = (List<ObjectItem>) localDb.objectItemDao().getMyObjects("mai");
+            mainHandler.post(()->{
+                callback.onComplete(data);
+            });
+        });
+    }
+    public void addObject(ObjectItem objectItem, AddObjectsListener listener){
+        executor.execute(()->{
+            localDb.objectItemDao().insertAll(objectItem);
+            mainHandler.post(()->{
+                listener.onComplete();
+            });
+        });    }
+    public void getObjectById(String id, GetObjectListener listener){
+        executor.execute(()->{
+            ObjectItem objectItem = localDb.objectItemDao().getById(id);
+            Log.d("q", "ggg" + objectItem);
+            mainHandler.post(()->{
+                listener.onComplete(objectItem);
+            });
+        });
+    }
 
     public void getCities(GetCitiesListener listener){
         LinkedList<String> citiesToAdd = new LinkedList<>();
@@ -181,6 +181,10 @@ public class Model {
     public void signout(){
 
         userModel.signout();
+    }
+
+    public void register(String email, String password,String name,ImageView IVPreviewImage, SignInListener callback){
+        userModel.register(email,password,name,IVPreviewImage,callback);
     }
 
     public void getBitMap(String path, ImageView img) {

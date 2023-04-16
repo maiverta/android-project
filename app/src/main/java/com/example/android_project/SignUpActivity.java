@@ -3,36 +3,114 @@ package com.example.android_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.android_project.model.Model;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
+    Button signUpBtn,loginBtn;
+    ImageView IVPreviewImage;
+    ImageButton uploadImageBtn;
+    Intent signinInent;
+    int REQUEST_CODE=1;
+    private FirebaseAuth userAuth;
+    int SELECT_PICTURE = 200;
+    private static final int pic_id = 123;
+    private Uri imageUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        EditText nameEt = findViewById(R.id.signup_nameEt);
-        EditText emailEt = findViewById(R.id.signup_emailEt);
-        EditText passwordEt = findViewById(R.id.signup_passwordEt);
-        EditText cityEt = findViewById(R.id.signup_cityEt);
-        EditText phoneNumberEt = findViewById(R.id.signup_phoneNumEt);
-
-        Button signUpBtn = findViewById((R.id.saveBtn));
-        Button loginBtn = findViewById((R.id.signup_login));
-
-
-        signUpBtn.setOnClickListener(view1 -> {
-            String name= nameEt.getText().toString();
+        loginBtn = findViewById(R.id.signup_loginBtn);
+        // Initialize Firebase Auth
+        userAuth = FirebaseAuth.getInstance();
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent
+                        = new Intent(SignUpActivity.this,
+                        LoginActivity.class);
+                startActivity(intent);
+            }
         });
+        IVPreviewImage = findViewById(R.id.IVPreviewImage);
+        IVPreviewImage.setDrawingCacheEnabled(true);
+        IVPreviewImage.buildDrawingCache();
+        uploadImageBtn =findViewById(R.id.singup_cameraBtn);
+        uploadImageBtn.setOnClickListener(view -> {
+            imageChooser();
+        });
+        signUpBtn = findViewById(R.id.signup_signUpBtn);
+        signUpBtn.setOnClickListener(view -> {
+            EditText editText = (EditText)findViewById(R.id.signup_nameEt);
+            String name = editText.getText().toString();
+            editText = (EditText)findViewById(R.id.signup_emailEt);
+            String email = editText.getText().toString();
+            editText = (EditText)findViewById(R.id.signup_passwordEt);
+            String password = editText.getText().toString();
 
-        loginBtn.setOnClickListener(view1 -> {
-            Intent intent
-                    = new Intent(SignUpActivity.this,
-                    LoginActivity.class);
-            startActivity(intent);        });
+            // validations for all inputs
+            if (TextUtils.isEmpty(name)) {
+                Toast.makeText(getApplicationContext(),
+                                "Please enter your name",
+                                Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(getApplicationContext(),
+                                "Please enter email",
+                                Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(getApplicationContext(),
+                                "Please enter password",
+                                Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+
+            Log.d("TAG", name);
+            Log.d("TAG", email);
+            Log.d("TAG", password);
+            createAccount(email,password,name);
+//            Bitmap bmap = IVPreviewImage.getDrawingCache();
+
+        });
+    }
+
+    void imageChooser() {
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Start the activity with camera_intent, and request pic id
+        startActivityForResult(camera_intent, pic_id);
+    }
+
+    private void createAccount(String email, String password,String name) {
+        Model.instance().register(email,password,name,IVPreviewImage,(ok)->{
+            if(ok){
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Register failed!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
