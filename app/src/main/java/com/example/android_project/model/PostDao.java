@@ -17,8 +17,6 @@ public interface PostDao {
     @Query("select * from Post where email=:emails")
     LiveData<List<Post>> getUsersPosts(String emails);
 
-//    @Query("select * from Post where email = :emails")
-//    List<ObjectItem> getMyObjects(String username);
 
 //    @Query("select * from Post where email != :username AND NOT isTaken")
 //    List<ObjectItem> getAllOthersPosts(String username);

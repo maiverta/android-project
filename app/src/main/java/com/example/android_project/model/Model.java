@@ -38,6 +38,8 @@ public class Model {
     private Firestore firestore = new Firestore();
     private FirebaseUserModel userModel = new FirebaseUserModel();
     private LiveData<List<Post>> postsList;
+
+    private LiveData<List<Post>> myPostsList;
     AppLocalDbRepository localDb=AppLocalDb.getAppDb();
     List<Post> data = new LinkedList<>();
 
@@ -179,6 +181,15 @@ public class Model {
             postsList = localDb.postDao().getAll();
         }
         return postsList;
+
+    }
+
+    public LiveData<List<Post>> getMyPosts(){
+        if(myPostsList ==null){
+            Log.d("gggg", getcurrent().getEmail());
+            myPostsList = localDb.postDao().getUsersPosts(getcurrent().getEmail());
+        }
+        return myPostsList;
 
     }
 
