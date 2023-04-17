@@ -42,31 +42,19 @@ class PostViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
         picture = itemView.findViewById(R.id.postlistrow_image);
         title = itemView.findViewById(R.id.postlistrow_title);
-//        description = itemView.findViewById(R.id.postslistrow_description);
-        price = itemView.findViewById(R.id.postlistrow_price);
+        city = itemView.findViewById(R.id.postlistrow_Location);
+        hand = itemView.findViewById(R.id.postlistrow_hand);
 //        email = itemView.findViewById(R.id.postslistrow_email);
 //        Button convert = itemView.findViewById(R.id.postslistrow_convert_btn);
-        Button editPostBtn = itemView.findViewById(R.id.postlistrow_editBtn);
-        if (!is_edit_post) {
-            editPostBtn.setVisibility(View.GONE);
-        }
-        this.data = data;
 
-        editPostBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                int pos = (int)price.getTag();
-                Post post = data.get(pos);
-                Bundle bundle = new Bundle();
-                bundle.putString("post_id", post.id);
-//                Navigation.findNavController(v).navigate(R.id.action_userPostsListFragment_to_editPostFragment, bundle);
-            }
-        });
+
     }
 
     public void bind(Post post, int pos) {
 //        Model.instance().getBitMap(post.pic_path,picture);
 //        picture.setImageBitmap(b);
-        hand.setText(post.hand);
+//        String t = post.hand.toString();
+        hand.setText(post.hand.toString());
         title.setText(post.title);
         city.setText(post.city);
         FirebaseStorage.getInstance().getReference().child("images/").child(post.imagePath+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

@@ -111,7 +111,7 @@ public class Post {
 //        String name = (String) json.get(NAME);
         String title = (String)json.get(TITLE);
         String description = (String)json.get(DESCRIPTION);
-        Integer hand = (Integer)json.get(HAND);
+        Integer hand = ((Long) json.get(HAND)).intValue();;
         String city = (String)json.get(CITY);
         String email = (String)json.get(EMAIL);
         String phoneNumber = (String)json.get(PHONE_NUMBER);
