@@ -3,6 +3,7 @@ package com.example.android_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,7 +28,6 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth userAuth;
     int SELECT_PICTURE = 200;
     private static final int pic_id = 123;
-    private Uri imageUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
         IVPreviewImage = findViewById(R.id.IVPreviewImage);
         IVPreviewImage.setDrawingCacheEnabled(true);
         IVPreviewImage.buildDrawingCache();
-        uploadImageBtn =findViewById(R.id.singup_cameraBtn);
+        uploadImageBtn = findViewById(R.id.singup_cameraBtn);
         uploadImageBtn.setOnClickListener(view -> {
             imageChooser();
         });
@@ -100,6 +100,20 @@ public class SignUpActivity extends AppCompatActivity {
         Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Start the activity with camera_intent, and request pic id
         startActivityForResult(camera_intent, pic_id);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        // Match the request 'pic id with requestCode
+        if (requestCode == pic_id) {
+            // BitMap is data structure of image file which store the image in memory
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+//            mImageUri = data.getData();
+//            mSelectImage.setImageURI(mImageUri);
+            // Set the image in imageview for display
+            IVPreviewImage.setImageBitmap(photo);
+        }
     }
 
     private void createAccount(String email, String password,String name) {

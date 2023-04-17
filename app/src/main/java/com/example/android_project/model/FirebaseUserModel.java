@@ -61,21 +61,21 @@ public class FirebaseUserModel {
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             bmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                             byte[] data = baos.toByteArray();
-                            Model.instance().uploadImage(Model.instance().getcurrent().getUid()+"_",data,url->Log.d("TAG","Start to upload"));
+                            Model.instance().uploadImage(Model.instance().getcurrent().getUid() + "_", data, url -> Log.d("TAG", "Start to upload"));
 
-                            FirebaseUser user =Model.instance().getcurrent();
+                            FirebaseUser user = Model.instance().getcurrent();
                             UserProfileChangeRequest profileupdate = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
                             user.updateProfile(profileupdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        String displayName =Model.instance().getcurrent().getDisplayName();
-                                        Log.d("TAG","User profile updated");
-                                        Log.d("TAG","Display name: "+ displayName);
+                                    if (task.isSuccessful()) {
+                                        String displayName = Model.instance().getcurrent().getDisplayName();
+                                        Log.d("TAG", "User profile updated");
+                                        Log.d("TAG", "Display name: " + displayName);
 
 
                                     } else {
-                                        Log.d("TAG","User profile was not updated");
+                                        Log.d("TAG", "User profile was not updated");
                                     }
                                 }
                             });
@@ -88,21 +88,6 @@ public class FirebaseUserModel {
                         callback.onComplete(success);
                     }
                 });
-        // [END create_user_with_email]
-//        mAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(
-//                        task -> {
-//                            boolean success;
-//                            if (task.isSuccessful()) {
-//                                success = true;
-//                                Log.d("TAG","Success!");
-//                            }
-//                            else {
-//                                success=false;
-//                                Log.d("TAG","Failure!");
-//                            }
-//                            callback.onComplete(success);
-//                        });
     }
 }
 

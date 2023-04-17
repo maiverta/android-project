@@ -39,8 +39,10 @@ import java.io.ByteArrayOutputStream;
 public class AddPostFragment extends Fragment {
     int SELECT_PICTURE = 200;
     ImageView IVPreviewImage;
+    ImageButton uploadImageBtn;
     Spinner citySpinner;
     ArrayAdapter<String>adapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,10 +64,6 @@ public class AddPostFragment extends Fragment {
 
 
     }
-
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,8 +92,8 @@ public class AddPostFragment extends Fragment {
 
 
         Button saveBtn = view.findViewById(R.id.add_post_saveBtn);
-        ImageButton add_image = view.findViewById(R.id.addPost_cameraBtn);
-        add_image.setOnClickListener(view1->{
+        ImageButton uploadImageBtn = view.findViewById(R.id.addPost_cameraBtn);
+        uploadImageBtn.setOnClickListener(view1->{
             image_chooser();
         });
         saveBtn.setOnClickListener(view1 -> {
