@@ -18,7 +18,7 @@ import com.google.firebase.storage.UploadTask;
 public class FirebaseStoreageModel {
     FirebaseStorage storage;
     FirebaseStoreageModel() {
-        storage = FirebaseStorage.getInstance();
+        storage = FirebaseStorage.getInstance("gs://android-project-6725f.appspot.com");
     }
 
     void getImage(String path, ImageView img) {

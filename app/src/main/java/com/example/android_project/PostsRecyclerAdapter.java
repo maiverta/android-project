@@ -38,39 +38,32 @@ class PostViewHolder extends RecyclerView.ViewHolder{
     ImageView picture;
 
 
-    public PostViewHolder(@NonNull View itemView, List<Post> data, boolean is_edit_post) {
+    public PostViewHolder(@NonNull View itemView, PostsRecyclerAdapter.OnPostClickListener listener,  List<Post> data, boolean is_edit_post) {
         super(itemView);
         picture = itemView.findViewById(R.id.postlistrow_image);
         title = itemView.findViewById(R.id.postlistrow_title);
-//        description = itemView.findViewById(R.id.postslistrow_description);
-        price = itemView.findViewById(R.id.postlistrow_price);
+        city = itemView.findViewById(R.id.postlistrow_Location);
+        hand = itemView.findViewById(R.id.postlistrow_hand);
 //        email = itemView.findViewById(R.id.postslistrow_email);
 //        Button convert = itemView.findViewById(R.id.postslistrow_convert_btn);
-//        Button editPostBtn = itemView.findViewById(R.id.postlistrow_editBtn);
-//        if (!is_edit_post) {
-//            editPostBtn.setVisibility(View.GONE);
-//        }
-        this.data = data;
 
-//        editPostBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                int pos = (int)price.getTag();
-//                Post post = data.get(pos);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("post_id", post.id);
-////                Navigation.findNavController(v).navigate(R.id.action_userPostsListFragment_to_editPostFragment, bundle);
-//            }
-//        });
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = getAdapterPosition();
+                listener.onItemClick(pos);
+            }
+        });
+
     }
 
     public void bind(Post post, int pos) {
 //        Model.instance().getBitMap(post.pic_path,picture);
 //        picture.setImageBitmap(b);
-        hand.setText(post.hand);
+//        String t = post.hand.toString();
+        hand.setText(post.hand.toString());
         title.setText(post.title);
         city.setText(post.city);
-        price.setText(post.price + " NIS");
-        price.setTag(pos);
         FirebaseStorage.getInstance().getReference().child("images/").child(post.imagePath+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -111,7 +104,7 @@ public class PostsRecyclerAdapter extends  RecyclerView.Adapter<PostViewHolder>{
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.object_list_row, parent, false);
-        return new PostViewHolder(view, data, is_edit_post);
+        return new PostViewHolder(view,listener, data, is_edit_post);
     }
 
     @Override

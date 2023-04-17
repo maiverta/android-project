@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //Log out need to enable it on my profile page
-        //        Model.instance().signout();
+//        Model.instance().signout();wa
         FirebaseUser user = Model.instance().getcurrent();
         if (user !=null){
             Intent intent

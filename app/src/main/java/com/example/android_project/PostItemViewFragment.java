@@ -20,10 +20,10 @@ import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link BlankFragment#newInstance} factory method to
+ * Use the {@link PostItemViewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BlankFragment extends Fragment {
+public class PostItemViewFragment extends Fragment {
 
     Post post = new Post();
 
@@ -33,8 +33,6 @@ public class BlankFragment extends Fragment {
     TextView descriptionTv;
     String description;
 
-    TextView priceTv;
-    String price;
 
     TextView handTv;
     Number hand;
@@ -55,7 +53,7 @@ public class BlankFragment extends Fragment {
 
     private String postId;
 
-    public BlankFragment() {
+    public PostItemViewFragment() {
         // Required empty public constructor
     }
 
@@ -67,8 +65,8 @@ public class BlankFragment extends Fragment {
      * @return A new instance of fragment ObjectItemView.
      */
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment newInstance(){
-        BlankFragment fragment = new BlankFragment();
+    public static PostItemViewFragment newInstance(){
+        PostItemViewFragment fragment = new PostItemViewFragment();
         Bundle args = new Bundle();
 //        args.putString("ID", objectId);
 
@@ -82,6 +80,7 @@ public class BlankFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null){
             postId = bundle.getString("PostId");
+            Log.d("ffff" , postId);
         }
     }
 
@@ -89,10 +88,9 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_post_view, container, false);
+        View view =  inflater.inflate(R.layout.fragment_post_item_view, container, false);
 //
         titleTv = view.findViewById(R.id.post_view_title);
-        priceTv = view.findViewById(R.id.post_view_price);
         handTv = view.findViewById(R.id.post_view_hand);
         descriptionTv= view.findViewById(R.id.post_view_description);
         notesTv= view.findViewById(R.id.post_view_notes);
@@ -101,11 +99,8 @@ public class BlankFragment extends Fragment {
         userPhoneNumberTv = view.findViewById(R.id.post_view_phonenumber);
         picture= view.findViewById(R.id.post_view_image);
 //
-//
-        Model.instance().getPostById(postId, (ob)->{
-            this.post = ob;
-            setObjectValues();
-        });
+      Model.instance().getPostView(postId, titleTv, descriptionTv, handTv,emailTv, cityTv,userPhoneNumberTv,notesTv, picture);
+
 
         return view;
     }
@@ -115,7 +110,6 @@ public class BlankFragment extends Fragment {
 //        imageUrlTv.setText(objectItem.getImageUrl());
         titleTv.setText(post.getTitle());
         descriptionTv.setText(post.getDescription());
-        priceTv.setText(post.getPrice().toString());
         handTv.setText(post.getHand().toString());
         cityTv.setText(post.getCity());
         notesTv.setText(post.getNotes());

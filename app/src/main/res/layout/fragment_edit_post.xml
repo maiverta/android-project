@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".EditPostFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,14 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/profile_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="Profile" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -33,37 +25,33 @@
 
 
                 <ImageView
-                    android:id="@+id/profile_image"
+                    android:id="@+id/edit_post_image"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="8dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/avatar" />
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/example" />
 
                 <ImageButton
-                    android:id="@+id/profile_cameraBtn"
+                    android:id="@+id/galleryButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_baseline_image_search_24" />
+
+                <ImageButton
+                    android:id="@+id/edit_cameraBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_baseline_photo_camera_24" />
 
-                <Button
-                    android:id="@+id/profile_change_pass_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="change password" />
-
-                <Button
-                    android:id="@+id/profile_logoutBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Logout" />
-
             </FrameLayout>
 
             <TextView
-                android:id="@+id/profile_textView"
+                android:id="@+id/post_textViewN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -80,21 +68,21 @@
                 app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_nameEt"
+                    android:id="@+id/edit_post_titleEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Full Name" />
+                    android:hint="Name Of post" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
-                android:id="@+id/profile_textViewE"
+                android:id="@+id/post_textViewH"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Email" />
+                android:text="Hand" />
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -105,24 +93,44 @@
                 app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_emailEt"
+                    android:id="@+id/edit_post_handEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textEmailAddress"
-                    android:hint="Email" />
+                    android:inputType="number"
+                    android:hint="Hand" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/profile_textViewP"
+                android:id="@+id/post_textViewCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Current Password" />
+                android:text="City" />
+
+            <Spinner
+                android:id="@+id/edit_post_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"/>
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Description" />
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -133,22 +141,21 @@
                 app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_passwordEt"
+                    android:id="@+id/edit_post_descriptionEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="password" />
+                    android:hint="Description" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
-                android:id="@+id/profile_textViewC"
+                android:id="@+id/post_textViewNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="New Password" />
+                android:text="Notes" />
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -159,47 +166,34 @@
                 app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_newPasswordEt"
-                    android:inputType="textPassword"
+                    android:id="@+id/edit_post_notesEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Notes" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_post_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <TextView
-                android:id="@+id/profile_textViewPN"
-                android:layout_width="match_parent"
+            <CheckBox android:id="@+id/edit_post_checkbox_isTaken"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="Phone Number" />
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
+                android:text="is Taken" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_phoneNumEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="phone"
-                    android:hint="Phone Number" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/profile_saveBtn"
+                    android:id="@+id/edit_post_saveBtn"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"

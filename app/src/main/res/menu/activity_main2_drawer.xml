@@ -15,7 +15,7 @@
             android:title="Profile"
             android:visible="false" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/myPostsFragment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="My Uploads" />
 

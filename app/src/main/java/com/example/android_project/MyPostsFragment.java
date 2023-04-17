@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android_project.PostsListFragmentDirections;
+import com.example.android_project.databinding.FragmentMyPostsBinding;
 import com.example.android_project.databinding.FragmentPostListBinding;
 import com.example.android_project.model.Model;
 import com.example.android_project.model.Post;
@@ -31,12 +32,12 @@ import com.example.android_project.model.Post;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PostsListFragment extends Fragment {
+public class MyPostsFragment extends Fragment {
 
     List<Post> data = new LinkedList<>();
     PostsRecyclerAdapter adapter;
-    PostsListFragmentViewModel postListViewModel;
-    FragmentPostListBinding binding;
+    MyPostsFragmentViewModel postListViewModel;
+    FragmentMyPostsBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,15 +60,15 @@ public class PostsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentPostListBinding.inflate(inflater, container, false);
+        binding = FragmentMyPostsBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
         adapter = new PostsRecyclerAdapter(getLayoutInflater(), postListViewModel.getData().getValue(), false);
 
-        binding.objectRecyclerList.setHasFixedSize(true);
+        binding.myObjectRecyclerList.setHasFixedSize(true);
 
-        binding.objectRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.objectRecyclerList.setAdapter(adapter);
+        binding.myObjectRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.myObjectRecyclerList.setAdapter(adapter);
 
 
         postListViewModel.getData().observe(getViewLifecycleOwner(), (list1) -> {
@@ -85,8 +86,8 @@ public class PostsListFragment extends Fragment {
             public void onItemClick(int pos) { // מה קורה שלוחצים על שורה
                 Log.d("TAG", "ACTITY"+ pos);
                 Post post= data.get(pos);
-                PostsListFragmentDirections.ActionNavHomeToPostViewFragment action= PostsListFragmentDirections.actionNavHomeToPostViewFragment(post.id);
-               Navigation.findNavController(view).navigate(action);
+                MyPostsFragmentDirections.ActionMyPostsFragmentToEditPostFragment action= MyPostsFragmentDirections.actionMyPostsFragmentToEditPostFragment(post.id);
+                Navigation.findNavController(view).navigate(action);
             }
         });
 
@@ -108,7 +109,7 @@ public class PostsListFragment extends Fragment {
 
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        postListViewModel = new ViewModelProvider(this).get(PostsListFragmentViewModel.class);
+        postListViewModel = new ViewModelProvider(this).get(MyPostsFragmentViewModel.class);
     }
 }
 
