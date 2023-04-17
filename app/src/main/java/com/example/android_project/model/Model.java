@@ -3,6 +3,7 @@ package com.example.android_project.model;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.core.os.HandlerCompat;
@@ -196,5 +197,9 @@ public class Model {
         data.add(post);
     }
 
+    public void getPost (String postId, EditText et_title, EditText et_desc, EditText et_hand,
+                         EditText et_city, EditText et_email,EditText et_phoneNumber,EditText et_notes, ImageView imgView){
+        firestore.getPost(postId, et_title, et_desc, et_hand, et_city, et_email,et_phoneNumber,et_notes, imgView);
+    }
 
 }

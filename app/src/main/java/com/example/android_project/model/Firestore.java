@@ -87,7 +87,7 @@ public class Firestore {
                 });
     }
 
-    public void getPost(String postId, EditText et_title, EditText et_desc, EditText et_price,
+    public void getPost(String postId, EditText et_title, EditText et_desc,
                         EditText et_hand, EditText et_city, EditText et_email, EditText et_phoneNumber,
                         EditText et_notes,ImageView imgView){
 
@@ -102,7 +102,7 @@ public class Firestore {
                     et_title.setText(post.title);
                     et_desc.setText(post.description);
 //                    et_name.setText(post.name);
-                    et_hand.setText(post.hand);
+                    et_hand.setText(post.hand.toString());
                     et_city.setText(post.city);
                     et_email.setText(post.email);
                     et_phoneNumber.setText(post.phoneNumber);

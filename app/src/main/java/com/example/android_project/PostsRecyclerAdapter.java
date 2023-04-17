@@ -45,8 +45,6 @@ class PostViewHolder extends RecyclerView.ViewHolder{
         city = itemView.findViewById(R.id.postlistrow_Location);
         hand = itemView.findViewById(R.id.postlistrow_hand);
 //        email = itemView.findViewById(R.id.postslistrow_email);
-//        Button convert = itemView.findViewById(R.id.postslistrow_convert_btn);
-
 
     }
 
