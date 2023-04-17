@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -99,14 +100,14 @@ public class EditPostFragment extends Fragment {
 
 
         Button saveBtn = view.findViewById(R.id.edit_post_saveBtn);
-//        Button add_image = view.findViewById(R.id.edit_cameraBtn);
+        ImageButton add_image = view.findViewById(R.id.edit_cameraBtn);
 
-//        add_image.setOnClickListener(view1->{
-//            image_chooser();
-//        });
+        add_image.setOnClickListener(view1->{
+            image_chooser();
+        });
 
 //        isTakenCB.setOnCheckedChangeListener((buttonView, isChecked) ->{
-//            this.isTaken = isChecked;
+//            this.isTakenCB = isChecked;
 //            Log.d("CHECKBOXES", "Cheese is checked: $isChecked" + isChecked);
 //        });
 
@@ -130,6 +131,7 @@ public class EditPostFragment extends Fragment {
             bmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
             Model.instance().uploadImage(imagePath,data,url->Log.d("TAG","Start to upload"));
+
             Navigation.findNavController(view1).popBackStack();
 
             Toast.makeText(getContext(),

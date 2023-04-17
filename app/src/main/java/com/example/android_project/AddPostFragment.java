@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -116,17 +117,14 @@ public class AddPostFragment extends Fragment {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
-
+            Model.instance().uploadImage(imagePath,data,url-> Log.d("TAG","Start to upload"));
 
             Toast.makeText(getContext(),
                             "Upload post successfully",
                             Toast.LENGTH_LONG)
                     .show();
-//            Navigation.findNavController(view1).popBackStack(R.id.m,false);
             Navigation.findNavController(view1).popBackStack();
         });
-
-//        cancelBtn.setOnClickListener(view1 -> Navigation.findNavController(view1).popBackStack(R.id.postsListFragment,false));
 
         return view;
 
