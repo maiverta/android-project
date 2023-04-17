@@ -1,9 +1,12 @@
 package com.example.android_project.ui.profile;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -22,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,6 +42,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+
 
 public class ProfileFragment extends Fragment {
 
@@ -50,16 +56,6 @@ public class ProfileFragment extends Fragment {
     public ProfileFragment() {
         // Required empty public constructor
     }
-
-
-//    public static ProfileFragment newInstance(String param1, String param2) {
-//        ProfileFragment fragment = new ProfileFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,8 +131,7 @@ public class ProfileFragment extends Fragment {
 
         passwordTextView = view.findViewById(R.id.profile_passwordEt);
         updatedPasswordTextView = view.findViewById(R.id.profile_newPasswordEt);
-//        EditText cityEt = view.findViewById(R.id.profile_cityEt);
-//        EditText phoneNumberEt = view.findViewById(R.id.profile_phoneNumEt);
+//
 
         IVPreviewImage = view.findViewById(R.id.profile_image);
         FirebaseStorage.getInstance().getReference().child("images/").child(Model.instance().getcurrent().getUid()+"_"+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -145,7 +140,10 @@ public class ProfileFragment extends Fragment {
                 Picasso.get().load(uri).into(IVPreviewImage);
             }
         });
-
+        ImageButton add_image = view.findViewById(R.id.profile_cameraBtn);
+        add_image.setOnClickListener(view1->{
+            image_chooser();
+        });
         Button signout = view.findViewById(R.id.profile_logoutBtn);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +156,6 @@ public class ProfileFragment extends Fragment {
         });
 
         Button updatePass = view.findViewById(R.id.profile_change_pass_btn);
-
         updatePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +165,39 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+        Button save_profile = view.findViewById(R.id.profile_saveBtn);
+        save_profile.setOnClickListener(view1->{
+            Bitmap bmap = ((BitmapDrawable) IVPreviewImage.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+            Model.instance().uploadImage(Model.instance().getcurrent().getUid()+"_",data,url->Log.d("TAG","Start to upload"));
+            Toast.makeText(getContext(),
+                            "User profile image updated.",
+                            Toast.LENGTH_LONG)
+                    .show();
+        });
+
         return view;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    IVPreviewImage.setImageURI(selectedImageUri);
+
+                }
+            }
+        }
     }
 }
