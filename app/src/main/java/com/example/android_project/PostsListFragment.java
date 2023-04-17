@@ -64,10 +64,6 @@ public class PostsListFragment extends Fragment {
             adapter.setData(list1);
         });
 
-//        Model.instance().getAllOtherObjects((obList)->{
-//            data = obList;
-//            adapter.setData(data);
-//        });
 
         adapter.setOnPostClickListener(new PostsRecyclerAdapter.OnPostClickListener() {
             @Override

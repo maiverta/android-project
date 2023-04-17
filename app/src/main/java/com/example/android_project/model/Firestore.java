@@ -67,29 +67,6 @@ public class Firestore {
                     }
                 });
     }
-
-
-    public void getUserPostsSince(Long since,String userEmail,Model.GetAllPostsListener callback){
-        db.collection("posts")
-                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED,new Timestamp(since,0))
-                .whereEqualTo(Post.EMAIL, userEmail)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        List<Post> list = new LinkedList<>();
-                        if (task.isSuccessful()){
-                            QuerySnapshot jsonsList = task.getResult();
-                            for (DocumentSnapshot json: jsonsList){
-                                Post st = Post.fromJson(json.getData());
-                                list.add(st);
-                            }
-                        }
-                        callback.onComplete(list);
-                    }
-                });
-    }
-
     public void getPostEdit(String postId, EditText et_title, EditText et_desc,
                             EditText et_hand, EditText et_phoneNumber,
                             EditText et_notes, ImageView imgView, CheckBox isTakenCB, Spinner citySpinner, String[] cities){

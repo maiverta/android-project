@@ -28,28 +28,13 @@ public class PostItemViewFragment extends Fragment {
     Post post = new Post();
 
     TextView titleTv;
-    String title;
-
     TextView descriptionTv;
-    String description;
-
-
     TextView handTv;
-    Number hand;
-
     TextView cityTv;
-    String city;
-
     TextView notesTv;
-    String notes;
-
     ImageView picture;
-
     TextView emailTv;
-    String email;
-
     TextView userPhoneNumberTv;
-    String userPhoneNumber;
 
     private String postId;
 
@@ -57,14 +42,7 @@ public class PostItemViewFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
 
-     * @return A new instance of fragment ObjectItemView.
-     */
-    // TODO: Rename and change types and number of parameters
     public static PostItemViewFragment newInstance(){
         PostItemViewFragment fragment = new PostItemViewFragment();
         Bundle args = new Bundle();
@@ -106,7 +84,6 @@ public class PostItemViewFragment extends Fragment {
 
     public void setObjectValues(){
         Log.d("nameeeeee", "name" + post.title);
-//        imageUrlTv.setText(objectItem.getImageUrl());
         titleTv.setText(post.getTitle());
         descriptionTv.setText(post.getDescription());
         handTv.setText(post.getHand().toString());

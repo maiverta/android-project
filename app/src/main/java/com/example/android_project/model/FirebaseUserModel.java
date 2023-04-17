@@ -25,7 +25,6 @@ public class FirebaseUserModel {
         return currentuser;
     }
     public void signout(){
-//        FirebaseAuth.getInstance().signOut();
         users.signOut();
     }
 

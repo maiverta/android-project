@@ -108,34 +108,5 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "failed to log in", Toast.LENGTH_LONG).show();
             }
         });
-
-
-//        Toast.makeText(getApplicationContext(), "IsLoggedIn: "+managed_to_login, Toast.LENGTH_LONG).show();
-
-//        mAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(
-//                        new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(
-//                                    @NonNull Task<AuthResult> task)
-//                            {
-//                                if (task.isSuccessful()) {
-//                                    Toast.makeText(getApplicationContext(),
-//                                                    "Login successful!",
-//                                                    Toast.LENGTH_LONG)
-//                                            .show();
-//
-//                                    // if successful - go to main activity
-//                                    Intent intent
-//                                            = new Intent(LoginActivity.this,
-//                                            MainActivity.class);
-//                                    startActivity(intent);
-//                                }
-//                                else {
-//                                    // sign-in failed
-
-//                                }
-//                            }
-//                        });
     }
 }

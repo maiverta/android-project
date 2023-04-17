@@ -58,9 +58,7 @@ class PostViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bind(Post post, int pos) {
-//        Model.instance().getBitMap(post.pic_path,picture);
-//        picture.setImageBitmap(b);
-//        String t = post.hand.toString();
+
         hand.setText(post.hand.toString());
         title.setText(post.title);
         city.setText(post.city);

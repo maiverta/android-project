@@ -28,16 +28,9 @@ import androidx.navigation.Navigation;
 import com.example.android_project.model.Model;
 import com.example.android_project.model.Post;
 
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
 
 public class EditPostFragment extends Fragment {
 
@@ -48,12 +41,6 @@ public class EditPostFragment extends Fragment {
     ArrayAdapter<String>adapter;
 
     String[] cities = new String[0];
-
-    EditText titleTv;
-    EditText descriptionTv;
-    EditText notesTv;
-    EditText phoneTv;
-    CheckBox isTakenCB;
 
 
     @Override
@@ -106,11 +93,6 @@ public class EditPostFragment extends Fragment {
             image_chooser();
         });
 
-//        isTakenCB.setOnCheckedChangeListener((buttonView, isChecked) ->{
-//            this.isTakenCB = isChecked;
-//            Log.d("CHECKBOXES", "Cheese is checked: $isChecked" + isChecked);
-//        });
-
         saveBtn.setOnClickListener(view1 -> {
             String title = titleTv.getText().toString();
             String desc = descriptionTv.getText().toString();
@@ -144,16 +126,6 @@ public class EditPostFragment extends Fragment {
 
     }
 
-
-    public void setObjectValues(){
-//        for(int i = 0; i< cities.length; i++){
-//            if(objectItem.city.equals(cities[i])) {
-//                Log.d("ttt", i +"");
-//                spinner.setSelection(i);
-//            }
-//        }
-
-    }
     private void image_chooser() {
         Intent i = new Intent();
         i.setType("image/*");

@@ -91,7 +91,6 @@ public class SignUpActivity extends AppCompatActivity {
             Log.d("TAG", email);
             Log.d("TAG", password);
             createAccount(email,password,name);
-//            Bitmap bmap = IVPreviewImage.getDrawingCache();
 
         });
     }
@@ -109,8 +108,6 @@ public class SignUpActivity extends AppCompatActivity {
         if (requestCode == pic_id) {
             // BitMap is data structure of image file which store the image in memory
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-//            mImageUri = data.getData();
-//            mSelectImage.setImageURI(mImageUri);
             // Set the image in imageview for display
             IVPreviewImage.setImageBitmap(photo);
         }
