@@ -136,6 +136,7 @@
                     android:id="@+id/profile_passwordEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
                     android:hint="password" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -159,6 +160,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/profile_newPasswordEt"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
