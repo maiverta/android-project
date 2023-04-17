@@ -86,7 +86,7 @@ public class MyPostsFragment extends Fragment {
             public void onItemClick(int pos) { // מה קורה שלוחצים על שורה
                 Log.d("TAG", "ACTITY"+ pos);
                 Post post= data.get(pos);
-                PostsListFragmentDirections.ActionNavHomeToPostViewFragment action= PostsListFragmentDirections.actionNavHomeToPostViewFragment(post.id);
+                MyPostsFragmentDirections.ActionMyPostsFragmentToEditPostFragment action= MyPostsFragmentDirections.actionMyPostsFragmentToEditPostFragment(post.id);
                 Navigation.findNavController(view).navigate(action);
             }
         });

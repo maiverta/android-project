@@ -1,8 +1,11 @@
 package com.example.android_project.model;
 
 import android.util.Log;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -87,9 +90,50 @@ public class Firestore {
                 });
     }
 
-    public void getPost(String postId, EditText et_title, EditText et_desc,
-                        EditText et_hand, EditText et_city, EditText et_email, EditText et_phoneNumber,
-                        EditText et_notes,ImageView imgView){
+    public void getPostEdit(String postId, EditText et_title, EditText et_desc,
+                            EditText et_hand, EditText et_phoneNumber,
+                            EditText et_notes, ImageView imgView, CheckBox isTakenCB, Spinner citySpinner, String[] cities){
+
+        DocumentReference docRef = db.collection("posts").document(postId);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    Post post = Post.fromJson(document.getData());
+                    for(int i = 0; i< cities.length; i++){
+                        if(post.city.equals(cities[i])) {
+                            Log.d("ttt", post.city);
+                            citySpinner.setSelection(i);
+                        }
+                    }
+                    et_title.setText(post.title);
+                    et_desc.setText(post.description);
+                    Log.d("isss", post.isTaken.toString());
+                    isTakenCB.setChecked(post.isTaken);
+                    et_hand.setText(post.hand.toString());
+                    et_phoneNumber.setText(post.phoneNumber);
+                    et_notes.setText(post.notes);
+                    Model.instance().getBitMap( post.imagePath,imgView);
+
+                    if (document.exists()) {
+                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+
+        });
+
+    }
+
+    public void getPostView(String postId, TextView et_title, TextView et_desc, TextView et_email,
+                            TextView et_hand, TextView et_city, TextView et_phoneNumber,
+                            TextView et_notes, ImageView imgView){
 
         DocumentReference docRef = db.collection("posts").document(postId);
 
@@ -101,10 +145,9 @@ public class Firestore {
                     Post post = Post.fromJson(document.getData());
                     et_title.setText(post.title);
                     et_desc.setText(post.description);
-//                    et_name.setText(post.name);
+                    et_email.setText(post.email);
                     et_hand.setText(post.hand.toString());
                     et_city.setText(post.city);
-                    et_email.setText(post.email);
                     et_phoneNumber.setText(post.phoneNumber);
                     et_notes.setText(post.notes);
                     Model.instance().getBitMap( post.imagePath,imgView);

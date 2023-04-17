@@ -99,11 +99,8 @@ public class PostItemViewFragment extends Fragment {
         userPhoneNumberTv = view.findViewById(R.id.post_view_phonenumber);
         picture= view.findViewById(R.id.post_view_image);
 //
-//
-        Model.instance().getPostById(postId, (ob)->{
-            this.post = ob;
-            setObjectValues();
-        });
+      Model.instance().getPostView(postId, titleTv, descriptionTv, handTv,emailTv, cityTv,userPhoneNumberTv,notesTv, picture);
+
 
         return view;
     }

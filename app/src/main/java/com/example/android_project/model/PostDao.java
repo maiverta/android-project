@@ -11,8 +11,8 @@ import java.util.List;
 
 @Dao
 public interface PostDao {
-    @Query("select * from Post")
-    LiveData<List<Post>> getAll();
+    @Query("select * from Post where email != :email AND NOT isTaken")
+    LiveData<List<Post>> getAll(String email);
 
     @Query("select * from Post where email=:emails")
     LiveData<List<Post>> getUsersPosts(String emails);

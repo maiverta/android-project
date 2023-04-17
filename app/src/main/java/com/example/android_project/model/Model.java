@@ -3,8 +3,11 @@ package com.example.android_project.model;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -178,7 +181,7 @@ public class Model {
     }
     public LiveData<List<Post>> getAllPosts(){
         if(postsList ==null){
-            postsList = localDb.postDao().getAll();
+            postsList = localDb.postDao().getAll(getcurrent().getEmail());
         }
         return postsList;
 
@@ -208,9 +211,14 @@ public class Model {
         data.add(post);
     }
 
-    public void getPost (String postId, EditText et_title, EditText et_desc, EditText et_hand,
-                         EditText et_city, EditText et_email,EditText et_phoneNumber,EditText et_notes, ImageView imgView){
-        firestore.getPost(postId, et_title, et_desc, et_hand, et_city, et_email,et_phoneNumber,et_notes, imgView);
+    public void getPostEdit (String postId, EditText et_title, EditText et_desc, EditText et_hand,
+                             EditText et_phoneNumber, EditText et_notes, ImageView imgView, CheckBox isTakenCB, Spinner citySpinner,String[] cities){
+        firestore.getPostEdit(postId, et_title, et_desc, et_hand,et_phoneNumber,et_notes, imgView, isTakenCB, citySpinner, cities);
+    }
+
+    public void getPostView(String postId, TextView et_title, TextView et_desc, TextView et_hand, TextView et_email,
+                            TextView et_city, TextView et_phoneNumber, TextView et_notes, ImageView imgView){
+        firestore.getPostView(postId, et_title, et_desc,et_email, et_hand, et_city,et_phoneNumber,et_notes, imgView);
     }
 
 }

@@ -17,10 +17,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.android_project.model.Model;
 import com.example.android_project.model.Post;
@@ -44,11 +46,19 @@ public class EditPostFragment extends Fragment {
     Spinner citySpinner;
     ArrayAdapter<String>adapter;
 
+    String[] cities = new String[0];
+
+    EditText titleTv;
+    EditText descriptionTv;
+    EditText notesTv;
+    EditText phoneTv;
+    CheckBox isTakenCB;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        post_id = getArguments().getString("post_id");
+        post_id = getArguments().getString("PostId");
 
     }
 
@@ -60,18 +70,6 @@ public class EditPostFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_edit_post, container, false);
 
-//        edit_post_spinner
-        Model.instance().getCities((citiesToAdd)->{
-            adapter = new ArrayAdapter<String>(getContext(),
-                    android.R.layout.simple_spinner_item,citiesToAdd);
-
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            adapter.notifyDataSetChanged();
-
-            citySpinner = (Spinner) view.findViewById(R.id.edit_post_spinner);
-            citySpinner.setAdapter(adapter);
-
-        });
 
         EditText titleTv = view.findViewById(R.id.edit_post_titleEt);
         EditText handTv = view.findViewById(R.id.edit_post_handEt);
@@ -82,14 +80,35 @@ public class EditPostFragment extends Fragment {
 
         IVPreviewImage = view.findViewById(R.id.edit_post_image);
 
-//        Model.instance().getPost(post_id, titleTv, descriptionTv, handTv, et_city, et_email,phoneTv,notesTv, IVPreviewImage);
+        //        edit_post_spinner
+        Model.instance().getCities((citiesToAdd)->{
+            adapter = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_spinner_item,citiesToAdd);
+            cities = citiesToAdd;
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            adapter.notifyDataSetChanged();
+
+            citySpinner = (Spinner) view.findViewById(R.id.edit_post_spinner);
+            citySpinner.setAdapter(adapter);
+
+            Model.instance().getPostEdit(post_id, titleTv, descriptionTv, handTv,phoneTv,notesTv, IVPreviewImage, isTakenCB, citySpinner, cities);
+
+
+        });
+
+
 
         Button saveBtn = view.findViewById(R.id.edit_post_saveBtn);
-        Button add_image = view.findViewById(R.id.edit_cameraBtn);
+//        Button add_image = view.findViewById(R.id.edit_cameraBtn);
 
-        add_image.setOnClickListener(view1->{
-            image_chooser();
-        });
+//        add_image.setOnClickListener(view1->{
+//            image_chooser();
+//        });
+
+//        isTakenCB.setOnCheckedChangeListener((buttonView, isChecked) ->{
+//            this.isTaken = isChecked;
+//            Log.d("CHECKBOXES", "Cheese is checked: $isChecked" + isChecked);
+//        });
 
         saveBtn.setOnClickListener(view1 -> {
             String title = titleTv.getText().toString();
@@ -98,7 +117,8 @@ public class EditPostFragment extends Fragment {
             String phone = phoneTv.getText().toString();
             String city = citySpinner.getSelectedItem().toString();
             String notes = notesTv.getText().toString();
-            Boolean isTaken = Boolean.parseBoolean(isTakenCB.getText().toString());
+            Boolean isTaken = isTakenCB.isChecked();
+            Log.d("rrrrrrr", isTaken.toString());
 
             String email = Model.instance().getcurrent().getEmail();
             String imagePath = post_id+"_"+title+"_"+email.split("@")[0];
@@ -110,6 +130,7 @@ public class EditPostFragment extends Fragment {
             bmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
             Model.instance().uploadImage(imagePath,data,url->Log.d("TAG","Start to upload"));
+            Navigation.findNavController(view1).popBackStack();
 
             Toast.makeText(getContext(),
                             "Update post successfully",
@@ -121,6 +142,16 @@ public class EditPostFragment extends Fragment {
 
     }
 
+
+    public void setObjectValues(){
+//        for(int i = 0; i< cities.length; i++){
+//            if(objectItem.city.equals(cities[i])) {
+//                Log.d("ttt", i +"");
+//                spinner.setSelection(i);
+//            }
+//        }
+
+    }
     private void image_chooser() {
         Intent i = new Intent();
         i.setType("image/*");
