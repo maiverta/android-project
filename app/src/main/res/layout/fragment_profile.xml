@@ -49,16 +49,13 @@
                     android:src="@drawable/ic_baseline_photo_camera_24" />
 
                 <Button
-                    android:id="@+id/profile_change_pass_btn"
+                    android:id="@+id/profile_saveBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="change password" />
-
-                <Button
-                    android:id="@+id/profile_logoutBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Logout" />
+                    android:layout_gravity="bottom|left"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="Edit Photo" />
 
             </FrameLayout>
 
@@ -70,21 +67,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="Name" />
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <TextView
                     android:id="@+id/profile_nameEt"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:hint="Full Name" />
-            </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
@@ -95,25 +87,21 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="Email" />
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
 
-                <com.google.android.material.textfield.TextInputEditText
+
+                <TextView
                     android:id="@+id/profile_emailEt"
                     android:layout_width="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:textSize="20sp"
                     android:inputType="textEmailAddress"
                     android:hint="Email" />
 
 
-            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/profile_textViewP"
@@ -166,45 +154,24 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <TextView
-                android:id="@+id/profile_textViewPN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="Phone Number" />
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:startIconDrawable="@drawable/ic_baseline_edit_calendar_24">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_phoneNumEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="phone"
-                    android:hint="Phone Number" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
                 <Button
-                    android:id="@+id/profile_saveBtn"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:id="@+id/profile_change_pass_btn"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:text="Edit" />
+                    android:text="change password" />
+
+                <Button
+                    android:id="@+id/profile_logoutBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Logout" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 

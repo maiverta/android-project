@@ -44,17 +44,7 @@ public class MyPostsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         FragmentActivity parentActivity = getActivity();
 
-        parentActivity.addMenuProvider(new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menu.removeItem(R.id.objectFragment);
-            }
 
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-                return false;
-            }
-        }, this, Lifecycle.State.RESUMED);
     }
 
     @Override

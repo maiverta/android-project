@@ -132,7 +132,7 @@ public class Firestore {
     }
 
     public void getPostView(String postId, TextView et_title, TextView et_desc, TextView et_email,
-                            TextView et_hand, TextView et_city, TextView et_phoneNumber,
+                            TextView et_hand, TextView et_city,
                             TextView et_notes, ImageView imgView){
 
         DocumentReference docRef = db.collection("posts").document(postId);
@@ -148,7 +148,6 @@ public class Firestore {
                     et_email.setText(post.email);
                     et_hand.setText(post.hand.toString());
                     et_city.setText(post.city);
-                    et_phoneNumber.setText(post.phoneNumber);
                     et_notes.setText(post.notes);
                     Model.instance().getBitMap( post.imagePath,imgView);
 

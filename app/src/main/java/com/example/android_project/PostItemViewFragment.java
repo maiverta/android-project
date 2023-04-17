@@ -96,10 +96,9 @@ public class PostItemViewFragment extends Fragment {
         notesTv= view.findViewById(R.id.post_view_notes);
         cityTv = view.findViewById(R.id.post_view_city);
         emailTv = view.findViewById(R.id.post_view_email);
-        userPhoneNumberTv = view.findViewById(R.id.post_view_phonenumber);
         picture= view.findViewById(R.id.post_view_image);
 //
-      Model.instance().getPostView(postId, titleTv, descriptionTv, handTv,emailTv, cityTv,userPhoneNumberTv,notesTv, picture);
+      Model.instance().getPostView(postId, titleTv, descriptionTv, handTv,emailTv, cityTv,notesTv, picture);
 
 
         return view;

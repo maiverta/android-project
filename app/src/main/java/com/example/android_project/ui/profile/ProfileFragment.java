@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android_project.LoginActivity;
@@ -47,7 +48,7 @@ import java.io.ByteArrayOutputStream;
 
 public class ProfileFragment extends Fragment {
 
-    private EditText profile_name_et, email_et;
+    private TextView profile_name_et, email_et;
     private EditText passwordTextView, updatedPasswordTextView;
     FirebaseAuth userAuth;
     int SELECT_PICTURE = 200;

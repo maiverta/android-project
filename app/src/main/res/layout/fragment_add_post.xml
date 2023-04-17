@@ -167,6 +167,7 @@ tools:context=".AddPostFragment">
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="match_parent">
 
                 <com.google.android.material.textfield.TextInputEditText

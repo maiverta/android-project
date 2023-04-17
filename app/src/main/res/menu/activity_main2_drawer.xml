@@ -29,9 +29,5 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Profile" />
 
-
-        <item
-            android:id="@+id/loginActivity"
-            android:title="Logout" />
     </group>
 </menu>

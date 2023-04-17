@@ -217,8 +217,8 @@ public class Model {
     }
 
     public void getPostView(String postId, TextView et_title, TextView et_desc, TextView et_hand, TextView et_email,
-                            TextView et_city, TextView et_phoneNumber, TextView et_notes, ImageView imgView){
-        firestore.getPostView(postId, et_title, et_desc,et_email, et_hand, et_city,et_phoneNumber,et_notes, imgView);
+                            TextView et_city, TextView et_notes, ImageView imgView){
+        firestore.getPostView(postId, et_title, et_desc,et_email, et_hand, et_city,et_notes, imgView);
     }
 
 }

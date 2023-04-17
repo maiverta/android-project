@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/nav_add"
         android:name="com.example.android_project.AddPostFragment"
-        android:label="ObjectItemViewFragment" >
+        android:label="Add Post" >
         <argument
             android:name="postId"
             app:argType="string" />
@@ -58,17 +58,17 @@
     <activity
         android:id="@+id/loginActivity"
         android:name="com.example.android_project.LoginActivity"
-        android:label="activity_login"
+        android:label="Login"
         tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.example.android_project.ui.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/postItemViewFragment"
         android:name="com.example.android_project.PostItemViewFragment"
-        android:label="PostItemViewFragment">
+        android:label="Post">
         <argument
         android:name="PostId"
         app:argType="string" />
@@ -76,7 +76,7 @@
     <fragment
         android:id="@+id/myPostsFragment"
         android:name="com.example.android_project.MyPostsFragment"
-        android:label="fragment_my_posts"
+        android:label="My Posts"
         tools:layout="@layout/fragment_my_posts" >
         <action
             android:id="@+id/action_myPostsFragment_to_editPostFragment"
@@ -85,7 +85,7 @@
     <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.android_project.EditPostFragment"
-        android:label="fragment_edit_post"
+        android:label="Edit Post"
         tools:layout="@layout/fragment_edit_post" >
         <argument
             android:name="PostId"
