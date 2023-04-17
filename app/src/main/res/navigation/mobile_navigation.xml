@@ -68,5 +68,10 @@
     <fragment
         android:id="@+id/postItemViewFragment"
         android:name="com.example.android_project.PostItemViewFragment"
-        android:label="PostItemViewFragment" />
+        android:label="PostItemViewFragment">
+        <argument
+        android:name="PostId"
+        app:argType="string" />
+    </fragment>
+
 </navigation>

@@ -80,6 +80,7 @@ public class PostItemViewFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null){
             postId = bundle.getString("PostId");
+            Log.d("ffff" , postId);
         }
     }
 

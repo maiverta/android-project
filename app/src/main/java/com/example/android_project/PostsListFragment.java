@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android_project.PostsListFragmentDirections;
 import com.example.android_project.databinding.FragmentPostListBinding;
 import com.example.android_project.model.Model;
 import com.example.android_project.model.Post;
@@ -68,7 +69,9 @@ public class PostsListFragment extends Fragment {
         binding.objectRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.objectRecyclerList.setAdapter(adapter);
 
+
         postListViewModel.getData().observe(getViewLifecycleOwner(), (list1) -> {
+            data = list1;
             adapter.setData(list1);
         });
 
@@ -80,11 +83,10 @@ public class PostsListFragment extends Fragment {
         adapter.setOnPostClickListener(new PostsRecyclerAdapter.OnPostClickListener() {
             @Override
             public void onItemClick(int pos) { // מה קורה שלוחצים על שורה
-
                 Log.d("TAG", "ACTITY"+ pos);
                 Post post= data.get(pos);
-//                UploadsFragmentDirections.ActionNavSlideshowToEditObjectFragment action = UploadsFragmentDirections.actionNavSlideshowToEditObjectFragment(post.id);
-//                Navigation.findNavController(view).navigate(action);
+                PostsListFragmentDirections.ActionNavHomeToPostViewFragment action= PostsListFragmentDirections.actionNavHomeToPostViewFragment(post.id);
+               Navigation.findNavController(view).navigate(action);
             }
         });
 
